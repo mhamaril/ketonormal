@@ -21,4 +21,6 @@ Info sivu
 
 ehkä: Sovellukseen tulee keskustelupalsta, jos aikataulu ja harjoitustyön vaativuus sitä edellyttää.
 
--vain kirjautuneet käyttäjät voivat lisätä ja nähdä viestejä -vain oman viestin voi poistaa -admin käyttäjä voi poistaa kaikkien viestejä
+-vain kirjautuneet käyttäjät voivat lisätä ja nähdä viestejä 
+-vain oman viestin voi poistaa 
+-admin käyttäjä voi poistaa kaikkien viestejä
