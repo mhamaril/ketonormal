@@ -4,20 +4,8 @@ import messages, users
 
 @app.route("/")
 def index():
-    list = messages.get_list()
-    return render_template("index.html", count=len(list), messages=list)
-
-@app.route("/new")
-def new():
-    return render_template("new.html")
-
-@app.route("/send", methods=["post"])
-def send():
-    content = request.form["content"]
-    if messages.send(content):
-        return redirect("/")
-    else:
-        return render_template("error.html",message="Viestin lähetys ei onnistunut")
+    
+    return render_template("index.html")
 
 @app.route("/login", methods=["get","post"])
 def login():
@@ -47,3 +35,21 @@ def register():
             return redirect("/")
         else:
             return render_template("error.html",message="Rekisteröinti ei onnistunut")
+
+@app.route("/submitlabs")
+def submit():
+    return render_template("submitlabs.html")
+
+@app.route("/result", methods=["POST"])
+def result():
+    sex = request.form["sex"]
+    age = request.form["age"]
+    diet = request.form["diet"]
+    hours = request.form["hours"]
+    units = request.form["units"]
+    total = request.form["total"]
+    ldl = request.form["ldl"]
+    hdl = request.form["hdl"]
+    trigly = request.form["trigly"]
+    return render_template("result.html", sex = sex, age = age, diet = diet, hours = hours, units = units, total = total, ldl = ldl, Hdl = hdl, trigly = trigly)
+ 

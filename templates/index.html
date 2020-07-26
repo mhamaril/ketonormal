@@ -1,4 +1,4 @@
-Viestien määrä: {{ count }}
+Submitted labs so far: {{ count }}
 <hr>
 {% for message in messages %}
 <i>Viesti:</i> {{ message[0] }}
@@ -9,8 +9,9 @@ Viestien määrä: {{ count }}
 <hr>
 {% endfor %}
 {% if session.user_id %}
-Olet kirjautunut sisään.
-<a href="/new">Lähetä viesti</a> | <a href="/logout">Kirjaudu ulos</a>
+You are logged in.<br>
+You can submit your labs and make queries<br>
+<a href="/submitlabs">Submit Labs</a> | <a href="/logout">Logout</a>
 {% else %}
-<a href="/login">Kirjaudu sisään</a>
+<a href="/login">Log in</a>
 {% endif %}

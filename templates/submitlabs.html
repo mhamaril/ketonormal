@@ -1,0 +1,49 @@
+{% if session.user_id %}
+<form action="/result" method="POST">
+    <header>
+        Submit your lab values
+    </header>
+    <p>
+        <input type="radio" name="sex" value="1"> Male
+        <input type="radio" name="sex" value="2"> Female
+        <input type="radio" name="sex" value="3"> Unspecified
+    <p>
+    
+    Age:
+    <input type="number" id="age" name="age"><br>
+    
+    <p>
+    What is your diet?:
+        <select name="diet">
+        <option value="">Select Diet</option>
+        <option value="LCHF">LCHF (20g to 120g carbs)</option>
+        <option value="keto">Keto (less than 50g carbs)</option>
+        <option value="zero">Carnivore (aka zero carbs)</option>
+        </select>
+    <p>
+    Total hours water-only fasted before this test:
+    <input type="number" name="hours">
+    <p>
+    Units of measurement:
+        <select name="units">
+        <option value="usa">mg/dL (Common for USA)</option>
+        <option value="int">mmol/L (Common for International)</option>
+        </select>
+    <p>
+    Total Cholesterol: 
+        <input type="number" step="0.1" name="total">
+    <p>
+    LDL Cholesterol: 
+        <input type="number" step="0.1" name="ldl">
+    <p>
+    HDL Cholesterol: 
+        <input type="number" step="0.1" name="hdl"> 
+    <p>
+    Triglycerides: 
+        <input type="number" step="0.1" name="trigly"> 
+     <p>     
+    <input type="submit" value="Submit">
+    </form>
+{% else %}
+<a href="/login">Log in</a>
+{% endif %}
