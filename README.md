@@ -11,7 +11,9 @@ Tietokantasovellus, johon tallennetaan verikokeen tulokset ja se laskee kullekin
 
 Sovellus vaatii rekisteröitymisen ja sisäänkirjautumisen, että tuloksia voi lisätä sekä tarkastella.
 
--peruskäyttäjä voi lisätä ja poistaa oman tuloksensa. Voi lisätä useamman kuin yhden verikokeen tuloksen -käyttäjältä kysytään kuinka paljon hän syö hiilihydraattia päivässä(low carb, keto, carnivore), ikä, sukupuoli, kokonaiskolesteroli, LDL, HDL, Triglyt, Hs-CRP, kuinka kauan paastoa ennen koetta -käyttäjä näkee miten hänen arvonsa sijoittuvat viitearvoihin -Hän voi tehdä erilaisia "hakuja" käyttöliittymässä, muuttamalla kriteereitä, esim haku koko tietokannasta, vain oman ikäisten ja oman sukupuolen perusteella, Hs-CRP < 1, yli vai alle 12h paasto jne -tulokset näytetään myös graafisesti
+-peruskäyttäjä voi lisätä ja poistaa oman tuloksensa. Voi lisätä useamman kuin yhden verikokeen tuloksen 
+-käyttäjältä kysytään kuinka paljon hän syö hiilihydraattia päivässä(low carb, keto, carnivore), ikä, sukupuoli, kokonaiskolesteroli, LDL, HDL, Triglyt, Hs-CRP, kuinka kauan paastoa ennen koetta 
+-käyttäjä näkee miten hänen arvonsa sijoittuvat viitearvoihin -Hän voi tehdä erilaisia "hakuja" käyttöliittymässä, muuttamalla kriteereitä, esim haku koko tietokannasta, vain oman ikäisten ja oman sukupuolen perusteella, Hs-CRP < 1, yli vai alle 12h paasto jne -tulokset näytetään myös graafisesti
 
 Info sivu
 
