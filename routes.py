@@ -1,11 +1,12 @@
 from app import app
 from flask import render_template, request, redirect
-import messages, users
+import labs, users
 
 @app.route("/")
 def index():
-    
-    return render_template("index.html")
+    # result = db.session.execute("SELECT COUNT(*) FROM labvalues")
+    # count = result.fetchone()[0]  , labvalues = labvalues
+    return redirect("login")
 
 @app.route("/login", methods=["get","post"])
 def login():
@@ -15,10 +16,13 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         if users.login(username,password):
-            return redirect("/")
+            return redirect("/mypage")
         else:
             return render_template("error.html",message="Väärä tunnus tai salasana")
 
+@app.route("/mypage")
+def mypage():
+    return render_template("mypage.html")
 @app.route("/logout")
 def logout():
     users.logout()
@@ -32,7 +36,7 @@ def register():
         username = request.form["username"]
         password = request.form["password"]
         if users.register(username,password):
-            return redirect("/")
+            return redirect("/login")
         else:
             return render_template("error.html",message="Rekisteröinti ei onnistunut")
 
@@ -42,6 +46,7 @@ def submit():
 
 @app.route("/result", methods=["POST"])
 def result():
+    lab_name = request.form["lab_name"]
     sex = request.form["sex"]
     age = request.form["age"]
     diet = request.form["diet"]
@@ -53,3 +58,6 @@ def result():
     trigly = request.form["trigly"]
     return render_template("result.html", sex = sex, age = age, diet = diet, hours = hours, units = units, total = total, ldl = ldl, Hdl = hdl, trigly = trigly)
  
+@app.route("/info")
+def info():
+    return render_template("info.html")

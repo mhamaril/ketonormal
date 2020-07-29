@@ -1,8 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<div class="jumbotron mb-0 d-flex align-items-center flex-column justify-content-center min-100" id="header">
+    <h1 class="display-3">Keto Normal</h1>
+    <p>Reference Ranges for Low-Carb People</p>
+    <p class="lead">
+        <a class="btn btn-outline-secondary btn-lg" href="/info" role="button">Learn more</a>
+    </p>
+</div>
+<body>
+    <section class="hero is-info is-fullheight">
+<div class="container">
+    <div class="columns is-left">
+        <div class="column is-full">
 <form action="/login" method="post">
-Tunnus: <input type="text" name="username">
-<p>
-Salasana: <input type="password" name="password">
-<p>
-<input type="submit" value="Kirjaudu">
+    <div class="field">
+        
+        
+        <label for="username">Username:</label>
+        <div class="control has-icons-left has-icons-right">
+        <input class="input" type="text" class="form-control" name="username">
+        <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+        </span>
+        </div>
+    </div>
+    <div class="field">
+        
+        <label for="pwd">Password:</label>
+        <p class="control has-icons-left">
+        <input class="input"  type="password" class="form-control" name="password">
+        <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+        </span>
+    </div>    
+    <div class="checkbox">
+        <label><input type="checkbox"> Remember me</label>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
 </form>
-Jos sinulla ei ole tunnusta, voit luoda uuden tunnuksen <a href="/register">tästä</a>
+</div>
+</div>
+<p></p>
+New user? Register <a href="/register">here</a>
+</div>
+    </section>
+</body>

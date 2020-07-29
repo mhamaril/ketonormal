@@ -4,13 +4,17 @@
         Submit your lab values
     </header>
     <p>
+        Give a name for this lab:<br>
+        <textarea name="lab_name" rows="1" cols="200"></textarea>
+    </p>
+    <p>
         <input type="radio" name="sex" value="1"> Male
         <input type="radio" name="sex" value="2"> Female
         <input type="radio" name="sex" value="3"> Unspecified
     <p>
     
     Age:
-    <input type="number" id="age" name="age"><br>
+    <input type="number" name="age"><br>
     
     <p>
     What is your diet?:
@@ -26,6 +30,7 @@
     <p>
     Units of measurement:
         <select name="units">
+        <option value="">Select Units</option>    
         <option value="usa">mg/dL (Common for USA)</option>
         <option value="int">mmol/L (Common for International)</option>
         </select>
