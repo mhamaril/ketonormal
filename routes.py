@@ -1,16 +1,18 @@
 from app import app
 from flask import render_template, request, redirect
 import labs, users
+from db import db
 
 @app.route("/")
 def index():
-    # result = db.session.execute("SELECT COUNT(*) FROM labvalues")
-    # count = result.fetchone()[0]  , labvalues = labvalues
+    
     return redirect("login")
 
 @app.route("/login", methods=["get","post"])
 def login():
     if request.method == "GET":
+        #result = db.session.execute("SELECT COUNT(*) FROM labvalues")
+        #count = result.fetchone()[0]  , labvalues = labvalues
         return render_template("login.html")
     if request.method == "POST":
         username = request.form["username"]
