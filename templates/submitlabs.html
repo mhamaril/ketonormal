@@ -1,7 +1,7 @@
 {% if session.user_id %}
 <form action="/result" method="POST">
     <header>
-        Submit your lab values
+        <h3>Submit your lab values</h3>
     </header>
     <p>
         Give a name for this lab:<br>
@@ -26,7 +26,7 @@
         </select>
     <p>
     Total hours water-only fasted before this test:
-    <input type="number" name="hours">
+    <input type="number" name="hours_fasted">
     <p>
     Units of measurement:
         <select name="units">
@@ -45,9 +45,18 @@
         <input type="number" step="0.1" name="hdl"> 
     <p>
     Triglycerides: 
-        <input type="number" step="0.1" name="trigly"> 
+        <input type="number" step="0.1" name="triglyt"> 
      <p>     
     <input type="submit" value="Submit">
+    <p>
+        How's your health? Give a value or estimate of your CRP:
+            <select name="crp">
+            <option value="">Select CRP</option>
+            <option value="good">Below 1.0, I'm feeling healthy</option>
+            <option value="normal">Between 1-3, I'm feeling OK</option>
+            <option value="higher">Over 3, I have some inflammation</option>
+            </select>
+        <p>
     </form>
 {% else %}
 <a href="/login">Log in</a>

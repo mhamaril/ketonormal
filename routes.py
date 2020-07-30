@@ -13,7 +13,9 @@ def login():
     if request.method == "GET":
         #result = db.session.execute("SELECT COUNT(*) FROM labvalues")
         #count = result.fetchone()[0]  , labvalues = labvalues
-        return render_template("login.html")
+        #list = labs.get_values()
+        count = labs.get_count()
+        return render_template("login.html", count=count)
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -48,45 +50,50 @@ def submit():
 
 @app.route("/result", methods=["POST"])
 def send_values():
-    if request.form["sex"] == 1:
+    if request.form["sex"] == "1":
         sex = "Male"
-    elif request.form["sex"] == 2:
+    elif request.form["sex"] == "2":
         sex = "Female"
     else:
         sex = "Undisclosed"
 
     lab_name = request.form["lab_name"]
-    
+    user_id = users.user_id()
     age = request.form["age"]
     diet = request.form["diet"]
-    hours = request.form["hours"]
+    hours_fasted = request.form["hours_fasted"]
+    crp = request.form["crp"]
     if request.form["units"]=="usa":
         units = "usa"
         total = request.form["total"]
-        total = float(total)/38.67
+        #total = float(total)*38.67
         ldl = request.form["ldl"]
-        ldl = float(ldl)/38.67
+        #ldl = float(ldl)*38.67
         hdl = request.form["hdl"]
-        hdl = float(hdl)/38.67
-        trigly = request.form["trigly"]
-        trigly = float(trigly)/38.67
+        #hdl = float(hdl)*38.67
+        triglyt = request.form["triglyt"]
+        #triglyt = float(triglyt)*38.67
     else:
         units = "int"
         total = request.form["total"]
         ldl = request.form["ldl"]
         hdl = request.form["hdl"]
-        trigly = request.form["trigly"]
-    return render_template("result.html", lab_name = lab_name, sex = sex, age = age, diet = diet, hours = hours, units = units, total = total, ldl = ldl, hdl = hdl, trigly = trigly)
+        triglyt = request.form["triglyt"]
+    if labs.send_values(lab_name, user_id, sex, age, diet, hours_fasted, units, total, ldl, hdl, triglyt, crp):
+        return render_template("result.html", lab_name = lab_name, sex = sex, age = age, diet = diet, hours_fasted = hours_fasted, units = units, total = total, ldl = ldl, hdl = hdl, triglyt = triglyt, crp=crp)
+    else:
+        return render_template("error.html",message="Something went wrong")
  
 @app.route("/info")
 def info():
     return render_template("info.html")
 
-@app.route("/messages", methods=["post"])
+@app.route("/send", methods=["post"])
 def send():
     content = request.form["content"]
     if messages.send(content):
-        return redirect("/messages.html")
+        list = messages.get_list()
+        return render_template("messages.html", count=len(list), messages=list)
     else:
         return render_template("error.html",message="Viestin lähetys ei onnistunut")
 
