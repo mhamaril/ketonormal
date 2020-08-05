@@ -47,8 +47,6 @@
     Triglycerides: 
         <input type="number" step="0.1" name="triglyt"> 
      <p>     
-    <input type="submit" value="Submit">
-    <p>
         How's your health? Give a value or estimate of your CRP:
             <select name="crp">
             <option value="">Select CRP</option>
@@ -57,6 +55,8 @@
             <option value="higher">Over 3, I have some inflammation</option>
             </select>
         <p>
+            <input type="submit" value="Submit">
+            <p>
     </form>
 {% else %}
 <a href="/login">Log in</a>

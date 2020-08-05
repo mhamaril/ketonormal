@@ -1,7 +1,37 @@
+<head>
+    <title>Registering Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+   
+  </head>
+  <body>
+    <section class="hero is-info is-fullheight">
+    <div class="container">
+        <div class="columns is-left">
+        <div class="column is-full">
 <form action="/register" method="post">
-Tunnus: <input type="text" name="username">
-<p>
-Salasana: <input type="password" name="password">
-<p>
-<input type="submit" value="Luo tunnus">
+    
+    <div class="field">
+        <label for="username">Username:</label>
+        <div class="control has-icons-left has-icons-right">
+        <input class="input" type="text" class="form-control" name="username">
+        <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+        </span>
+        </div>
+    </div>
+    <div class="field">
+        
+        <label for="pwd">Password:</label>
+        <p class="control has-icons-left">
+        <input class="input"  type="password" class="form-control" name="password">
+        <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+        </span>
+    </div>    
+
+    <button type="submit" class="btn btn-default">Create account</button>
+
 </form>

@@ -1,7 +1,13 @@
 {% if session.user_id %}
-Hello {{ result }}.<br>
+<h2>Hello, {{ session.username  }}!</h2><br>
+Here are your labs:<br>
+<p>
+{% for labname in lab_names %}
+<a href="/results/{{ labname[0] }}">{{ labname[0] }}</a>
+<p>
+{% endfor %}
 You can submit your labs and make queries<br>
-<a href="/submitlabs">Submit Labs</a> | <a href="/logout">Logout</a>
+<a href="/submitlabs">Submit Labs</a> | <a href="/query">Make Queries</a>| <a href="/logout">Logout</a>
 {% else %}
 <a href="/login">Log in</a>
 {% endif %}

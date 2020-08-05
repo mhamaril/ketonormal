@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect
-import labs, users, messages
+import labs, users
 from db import db
 
 @app.route("/")
@@ -11,9 +11,6 @@ def index():
 @app.route("/login", methods=["get","post"])
 def login():
     if request.method == "GET":
-        #result = db.session.execute("SELECT COUNT(*) FROM labvalues")
-        #count = result.fetchone()[0]  , labvalues = labvalues
-        #list = labs.get_values()
         count = labs.get_count()
         return render_template("login.html", count=count)
     if request.method == "POST":
@@ -24,9 +21,17 @@ def login():
         else:
             return render_template("error.html",message="Wrong username or password")
 
-@app.route("/mypage")
+@app.route("/mypage", methods=["GET","POST"])
 def mypage():
-    return render_template("mypage.html")
+    #if request.method == "GET":
+    lab_names = labs.get_labNames()
+    return render_template("mypage.html", lab_names = lab_names)
+
+@app.route("/results/<string:lab_name>")
+def lab_name(lab_name):
+    lab_name = labs.get_values(lab_name)
+    return render_template("results.html", lab_name = lab_name)
+
 @app.route("/logout")
 def logout():
     users.logout()
@@ -47,6 +52,10 @@ def register():
 @app.route("/submitlabs")
 def submit():
     return render_template("submitlabs.html")
+
+@app.route("/query")
+def query():
+    return render_template("query.html")
 
 @app.route("/result", methods=["POST"])
 def send_values():
@@ -83,7 +92,7 @@ def send_values():
         return render_template("result.html", lab_name = lab_name, sex = sex, age = age, diet = diet, hours_fasted = hours_fasted, units = units, total = total, ldl = ldl, hdl = hdl, triglyt = triglyt, crp=crp)
     else:
         return render_template("error.html",message="Something went wrong")
- 
+        
 @app.route("/info")
 def info():
     return render_template("info.html")
@@ -99,4 +108,4 @@ def send():
 
 @app.route("/new")
 def new():
-    return render_template("new.html")
+    return render_template("new_query.html", )
