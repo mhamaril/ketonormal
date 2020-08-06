@@ -5,6 +5,23 @@ def get_count():
     result = db.session.execute("SELECT COUNT(*) FROM labvalues")
     return result.fetchone()[0]
 
+def ave_total():
+    result = db.session.execute("SELECT SUM(total)/COUNT(total) FROM labvalues")
+    return result.fetchone()[0]
+
+def ave_ldl():
+    result = db.session.execute("SELECT SUM(ldl)/count(ldl) FROM labvalues")
+    return result.fetchone()[0]
+
+def ave_hdl():
+    result = db.session.execute("SELECT SUM(hdl)/COUNT(hdl) FROM labvalues")
+    return result.fetchone()[0]
+
+def ave_triglyt():
+    result = db.session.execute("SELECT SUM(triglyt)/COUNT(triglyt) FROM labvalues")
+    return result.fetchone()[0]
+
+
 def get_labNames():
     sql = "SELECT L.lab_name FROM labvalues L, users U WHERE L.user_id=U.id ORDER BY L.lab_name"
     result = db.session.execute(sql)
@@ -71,3 +88,6 @@ def query(age):
     return result.fetchall()
     
  """
+
+ #
+#select sum(ldl)/count(ldl) from labvalues where age between 20 and 45 and sex IN ('Male') and hours_fasted between 12 and 14 and diet IN ('LCHF') and crp IN ('good');

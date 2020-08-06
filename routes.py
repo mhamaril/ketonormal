@@ -12,7 +12,12 @@ def index():
 def login():
     if request.method == "GET":
         count = labs.get_count()
-        return render_template("login.html", count=count)
+        total = labs.ave_total()
+        ldl = labs.ave_ldl()
+        hdl = labs.ave_hdl()
+        triglyt = labs.ave_triglyt()
+        return render_template("login.html", count=count, total  = round(total, 1), ldl = round(ldl, 1), hdl = round(hdl, 1), triglyt = round(triglyt, 1))
+
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
