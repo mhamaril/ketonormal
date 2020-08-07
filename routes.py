@@ -37,6 +37,20 @@ def lab_name(lab_name):
     lab_name = labs.get_values(lab_name)
     return render_template("results.html", lab_name = lab_name)
 
+@app.route("/query")
+def query():
+    return render_template("query.html")
+
+@app.route("/query_result", methods=["POST"])
+def get_sex():
+    sex = request.form["sex"]
+    age = request.form["age"]
+    hours_fasted = request.form["hours_fasted"]
+    crp = request.form["crp"]
+    tulos = labs.get_sex(sex, age, hours_fasted, crp)
+    return render_template("query_result.html", tulos = tulos)
+
+
 @app.route("/logout")
 def logout():
     users.logout()
@@ -57,10 +71,6 @@ def register():
 @app.route("/submitlabs")
 def submit():
     return render_template("submitlabs.html")
-
-@app.route("/query")
-def query():
-    return render_template("query.html")
 
 @app.route("/result", methods=["POST"])
 def send_values():

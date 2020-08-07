@@ -22,5 +22,5 @@ CREATE TABLE labvalues (
     ldl REAL,
     hdl REAL,
     triglyt REAL,
-    crp TEXT
+    crp REAL
 );
