@@ -32,7 +32,54 @@ def get_values(lab_name):
     result = db.session.execute(sql, {"lab_name":lab_name})
     return result.fetchall()
 
-def get_sex(sex, age, hours_fasted, crp):
+def get_query_total(sex, age, hours_fasted, crp):
+    minAge = 0
+    maxAge = 0
+    minHours = 0
+    maxHours = 0
+    minCRP = 0
+    maxCRP = 0
+    if age == "under":
+        minAge = 10
+        maxAge = 39
+    if age == "40to59":
+        minAge = 40
+        maxAge = 59
+    if age == "over60":
+        minAge = 60
+        maxAge = 130
+    if age == "all_ages":
+        minAge = 0
+        maxAge = 130
+    if hours_fasted == "under":
+        minHours = 0
+        maxHours = 11
+    if hours_fasted == "between":
+        minHours = 12
+        maxHours = 14
+    if hours_fasted == "over":
+        minHours = 15
+        maxHours = 999
+    if hours_fasted == "all_hours":
+        minHours = 0
+        maxHours = 999
+    if crp == "good":
+        minCRP = 0
+        maxCRP = 1
+    if crp == "normal":
+        minCRP = 1
+        maxCRP = 3
+    if crp == "higher":
+        minCRP = 3
+        maxCRP = 999
+    if crp == "all_crp":
+        minCRP = 0
+        maxCRP = 999
+    sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total) FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND hours_fasted BETWEEN :minHours AND :maxHours AND crp BETWEEN :minCRP AND :maxCRP"
+    result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "minHours":minHours, "maxHours":maxHours, "minCRP":minCRP, "maxCRP":maxCRP})
+    return result.fetchall()
+
+""" def get_query(sex, age, hours_fasted, crp):
     minAge = 0
     maxAge = 0
     minHours = 0
@@ -77,7 +124,7 @@ def get_sex(sex, age, hours_fasted, crp):
         maxCRP = 999
     sql = "SELECT total, ldl, hdl, triglyt FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND hours_fasted BETWEEN :minHours AND :maxHours AND crp BETWEEN :minCRP AND :maxCRP"
     result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "minHours":minHours, "maxHours":maxHours, "minCRP":minCRP, "maxCRP":maxCRP})
-    return result.fetchall()
+    return result.fetchall() """
 
 def send_values(lab_name, user_id, sex, age, diet, hours_fasted, units, total, ldl, hdl, triglyt, crp):
     user_id = users.user_id()
@@ -118,5 +165,4 @@ def send_values(lab_name, user_id, sex, age, diet, hours_fasted, units, total, l
     
  """
 
- #
-#select sum(ldl)/count(ldl) from labvalues where age between 20 and 45 and sex IN ('Male') and hours_fasted between 12 and 14 and diet IN ('LCHF') and crp IN ('good');
+ 

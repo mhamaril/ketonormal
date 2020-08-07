@@ -1,1 +1,7 @@
-{{ tulos }}
+{% for result in tulos %}
+Lower limit ({{ result[0] }})<br>
+Average ({{ result[1] }})<br>
+Upper limit ({{ result[2] }})<br>
+<p></p>
+
+{% endfor %}

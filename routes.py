@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, request, redirect
 import labs, users
 from db import db
+from statistics import mean, stdev
 
 @app.route("/")
 def index():
@@ -41,13 +42,23 @@ def lab_name(lab_name):
 def query():
     return render_template("query.html")
 
-@app.route("/query_result", methods=["POST"])
-def get_sex():
+""" @app.route("/query_result", methods=["POST"])
+def get_query_total():
     sex = request.form["sex"]
     age = request.form["age"]
     hours_fasted = request.form["hours_fasted"]
     crp = request.form["crp"]
-    tulos = labs.get_sex(sex, age, hours_fasted, crp)
+    tulos = labs.get_query_total(sex, age, hours_fasted, crp)
+    ka = mean(labs.get_query_total(sex, age, hours_fasted, crp))
+    return render_template("query_result.html", tulos = tulos, ka = ka)
+ """
+@app.route("/query_result", methods=["POST"])
+def get_query_total():
+    sex = request.form["sex"]
+    age = request.form["age"]
+    hours_fasted = request.form["hours_fasted"]
+    crp = request.form["crp"]
+    tulos = labs.get_query_total(sex, age, hours_fasted, crp)
     return render_template("query_result.html", tulos = tulos)
 
 
