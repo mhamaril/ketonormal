@@ -3,10 +3,16 @@ CREATE TABLE users (
     username TEXT UNIQUE,
     password TEXT
 );
+CREATE TABLE subjects (
+    id SERIAL PRIMARY KEY,
+    topic TEXT,
+    created_at TIMESTAMP
+);
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
     content TEXT,
     user_id INTEGER REFERENCES users,
+    message_id INTEGER REFERENCES subjects,
     sent_at TIMESTAMP
 );
 CREATE TABLE labvalues (
