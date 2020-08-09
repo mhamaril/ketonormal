@@ -6,7 +6,7 @@ su 9.8.2020	Välipalautus 2
 
 Sovelluksessa on toimiva rekisteröinti ja sisäänkirjautuminen. Kaikki sovelluksen sivut vaatii sisäänkirjautumisen paitsi infosivu. Jos yrittää rekisteröidä samalla käyttäjänimellä niin tulee virhe viesti(korjattu omalla koneella, ei herokussa).
 
-Mypage sivulla pitäisi näkyä vain omat labrat, mutta nyt siellä näkyy kaikkien labrojen nimet. Klikatessa labran nimeä avautuu sivu missä on kyseisen labran kaikki arvot. Tällä sivulla myös tulee näkymään 3 viimeisintä keskustelua, joihin voi siirtyä suoraan otsikkoa klikkaamalla.
+Mypage sivulla pitäisi näkyä vain omat labrat, mutta nyt siellä näkyy kaikkien labrojen nimet. Klikatessa labran nimeä avautuu sivu missä on kyseisen labran kaikki arvot. Mypage sivulla tulee myös näkymään 3 viimeisintä keskustelua, joihin voi siirtyä suoraan otsikkoa klikkaamalla.
 
 Submit Labs- toimii halutulla tavalla, paitsi jos ei täytä kaikkia kohtia. Se lisää tietokantaan annetut arvot
 
