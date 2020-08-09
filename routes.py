@@ -1,8 +1,8 @@
 from app import app
 from flask import render_template, request, redirect
-import labs, users
+import labs, users, forum
 from db import db
-from statistics import mean, stdev
+
 
 @app.route("/")
 def index():
@@ -17,7 +17,7 @@ def login():
         ldl = labs.ave_ldl()
         hdl = labs.ave_hdl()
         triglyt = labs.ave_triglyt()
-        return render_template("login.html", count=count, total  = round(total, 1), ldl = round(ldl, 1), hdl = round(hdl, 1), triglyt = round(triglyt, 1))
+        return render_template("login.html", count=count, total  = total, ldl = ldl, hdl = hdl, triglyt = triglyt)
 
     if request.method == "POST":
         username = request.form["username"]
@@ -29,37 +29,32 @@ def login():
 
 @app.route("/mypage", methods=["GET","POST"])
 def mypage():
-    #if request.method == "GET":
+#    if request.method == "POST":
+#        remove nappi
     lab_names = labs.get_labNames()
-    return render_template("mypage.html", lab_names = lab_names)
+    #topics = forum.get_topics()
+    return render_template("mypage.html", lab_names = lab_names) #, topics = topics
 
 @app.route("/results/<string:lab_name>")
 def lab_name(lab_name):
     lab_name = labs.get_values(lab_name)
+    
     return render_template("results.html", lab_name = lab_name)
 
 @app.route("/query")
 def query():
     return render_template("query.html")
 
-""" @app.route("/query_result", methods=["POST"])
-def get_query_total():
-    sex = request.form["sex"]
-    age = request.form["age"]
-    hours_fasted = request.form["hours_fasted"]
-    crp = request.form["crp"]
-    tulos = labs.get_query_total(sex, age, hours_fasted, crp)
-    ka = mean(labs.get_query_total(sex, age, hours_fasted, crp))
-    return render_template("query_result.html", tulos = tulos, ka = ka)
- """
 @app.route("/query_result", methods=["POST"])
 def get_query_total():
     sex = request.form["sex"]
     age = request.form["age"]
+    diet = request.form["diet"]
     hours_fasted = request.form["hours_fasted"]
     crp = request.form["crp"]
-    tulos = labs.get_query_total(sex, age, hours_fasted, crp)
-    return render_template("query_result.html", tulos = tulos)
+    units = request.form["units"]
+    tulos = labs.get_query_total(sex, age, diet, hours_fasted, crp, units)
+    return render_template("query_result.html", tulos = tulos, sex = sex, age = age, diet = diet, hours_fasted = hours_fasted, crp = crp, units = units)
 
 
 @app.route("/logout")
@@ -132,6 +127,9 @@ def send():
     else:
         return render_template("error.html",message="Viestin lähetys ei onnistunut")
 
+@app.route("/forum")
+def forum():
+    return render_template("forum.html")
 @app.route("/new")
 def new():
-    return render_template("new_query.html", )
+    return render_template("new_query.html")

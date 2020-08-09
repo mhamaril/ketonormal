@@ -6,22 +6,26 @@ def get_count():
     return result.fetchone()[0]
 
 def ave_total():
-    result = db.session.execute("SELECT SUM(total)/COUNT(total) FROM labvalues")
+    result = db.session.execute("SELECT AVG(total) FROM labvalues")
     return result.fetchone()[0]
 
 def ave_ldl():
-    result = db.session.execute("SELECT SUM(ldl)/count(ldl) FROM labvalues")
+    result = db.session.execute("SELECT AVG(ldl) FROM labvalues")
     return result.fetchone()[0]
 
 def ave_hdl():
-    result = db.session.execute("SELECT SUM(hdl)/COUNT(hdl) FROM labvalues")
+    result = db.session.execute("SELECT AVG(hdl) FROM labvalues")
     return result.fetchone()[0]
 
 def ave_triglyt():
-    result = db.session.execute("SELECT SUM(triglyt)/COUNT(triglyt) FROM labvalues")
+    result = db.session.execute("SELECT AVG(triglyt) FROM labvalues")
     return result.fetchone()[0]
 
-
+"""     
+def get_averages():
+    result = db.session.execute("SELECT AVG(total), AVG(ldl), AVG(hdl), AVG(triglyt) FROM labvalues")
+    return result.fetchall()
+ """
 def get_labNames():
     sql = "SELECT L.lab_name FROM labvalues L, users U WHERE L.user_id=U.id ORDER BY L.lab_name"
     result = db.session.execute(sql)
@@ -32,7 +36,8 @@ def get_values(lab_name):
     result = db.session.execute(sql, {"lab_name":lab_name})
     return result.fetchall()
 
-def get_query_total(sex, age, hours_fasted, crp):
+def get_query_total(sex, age, diet, hours_fasted, crp, units):
+    
     minAge = 0
     maxAge = 0
     minHours = 0
@@ -75,8 +80,8 @@ def get_query_total(sex, age, hours_fasted, crp):
     if crp == "all_crp":
         minCRP = 0
         maxCRP = 999
-    sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total) FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND hours_fasted BETWEEN :minHours AND :maxHours AND crp BETWEEN :minCRP AND :maxCRP"
-    result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "minHours":minHours, "maxHours":maxHours, "minCRP":minCRP, "maxCRP":maxCRP})
+    sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total), AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl), AVG(hdl)-1.96*STDDEV(hdl), AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl), AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), AVG(triglyt)+1.96*STDDEV(triglyt) FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND diet = :diet AND hours_fasted BETWEEN :minHours AND :maxHours AND crp BETWEEN :minCRP AND :maxCRP"
+    result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "diet":diet, "minHours":minHours, "maxHours":maxHours, "minCRP":minCRP, "maxCRP":maxCRP, "units":units})
     return result.fetchall()
 
 """ def get_query(sex, age, hours_fasted, crp):

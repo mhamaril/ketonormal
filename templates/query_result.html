@@ -1,7 +1,75 @@
+
+<h3>With the chosen paremeters reference ranges are as follows.</h3>
+{{ sex }}<br>
+{% if age == 'under' %}
+    Age between 10 and 39<br>
+{% endif %}
+{% if age == '40to59' %}
+    Age between 40 and 59<br>
+{% endif %}
+{% if age == 'over60' %}
+    Age over 60<br>
+{% endif %}
+{% if age == 'all_ages' %}
+    All ages<br>
+{% endif %}
+
+{% if diet == 'LCHF' %}
+    LCHF (20g to 120g carbs)<br>
+{% endif %}
+{% if diet == 'keto' %}
+    Keto (less than 50g carbs)<br>
+{% endif %}
+{% if diet == 'zero' %}
+    Carnivore (aka zero carbs)<br>
+{% endif %}
+
+{% if hours_fasted == 'under' %}
+    Less than 12 Hours Fasted<br>
+{% endif %}
+{% if hours_fasted == 'between' %}
+    Between 12-14 Hours Fasted<br>
+{% endif %}
+{% if hours_fasted == 'over' %}
+    More than 14 Hours Fasted<br>
+{% endif %}
+{% if hours_fasted == 'all_hours' %}
+    All Fasting times<br>
+{% endif %}
+
+{% if crp == 'good' %}
+    CRP Below 1.0<br>
+{% endif %}
+{% if crp == 'normal' %}
+    CRP Between 1-3<br>
+{% endif %}
+{% if crp == 'higher' %}
+    CRP Over 3<br>
+{% endif %}
+{% if crp == 'all_crp' %}
+    All CRP values<br>
+{% endif %}
+Units of measurement: {{ units }}
+<p>
+<hr>
 {% for result in tulos %}
-Lower limit ({{ result[0] }})<br>
-Average ({{ result[1] }})<br>
-Upper limit ({{ result[2] }})<br>
+{% if units == 'usa' %}
+<h3>Referenge Ranges:</h3>
+Total Cholesterol: Lower limit ({{ (result[0]*38.67) | round(1, 'common') }}) Average ({{ (result[1]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[2]*38.67)|round(1, 'common') }})<br>
+LDL Cholesterol: Lower limit ({{ (result[3]*38.67)|round(1, 'common') }}) Average ({{ (result[4]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[5]*38.67)|round(1, 'common') }})<br>
+HDL Cholesterol: Lower limit ({{ (result[6]*38.67)|round(1, 'common') }}) Average ({{ (result[7]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[8]*38.67)|round(1, 'common') }})<br>
+Triglycerides: Lower limit ({{ (result[9]*38.67)|round(1, 'common') }}) Average ({{ (result[10]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[11]*38.67)|round(1, 'common') }})<br>
 <p></p>
+{% endif %}
+{% if units == 'int' %}
+<h3>Referenge Ranges:</h3>
+Total Cholesterol: Lower limit ({{ result[0]|round(1, 'common') }}) Average ({{ result[1]|round(1, 'common') }}) Upper limit ({{ result[2]|round(1, 'common') }})<br>
+LDL Cholesterol: Lower limit ({{ result[3]|round(1, 'common') }}) Average ({{ result[4]|round(1, 'common') }}) Upper limit ({{ result[5]|round(1, 'common') }})<br>
+HDL Cholesterol: Lower limit ({{ result[6]|round(1, 'common') }}) Average ({{ result[7]|round(1, 'common') }}) Upper limit ({{ result[8]|round(1, 'common') }})<br>
+Triglycerides: Lower limit ({{ result[9]|round(1, 'common') }}) Average ({{ result[10]|round(1, 'common') }}) Upper limit ({{ result[11]|round(1, 'common') }})<br>
+<p></p>
+{% endif %}
 
 {% endfor %}
+<hr>
+<a href="/mypage">Back</a>

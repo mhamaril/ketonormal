@@ -5,6 +5,7 @@ CREATE TABLE users (
 );
 CREATE TABLE subjects (
     id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users,	
     topic TEXT,
     created_at TIMESTAMP
 );

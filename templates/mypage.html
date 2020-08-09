@@ -3,11 +3,19 @@
 Here are your labs:<br>
 <p>
 {% for labname in lab_names %}
-<a href="/results/{{ labname[0] }}">{{ labname[0] }}</a>
+<a href="/results/{{ labname[0] }}">{{labname[0]}} <button type="submit" class="btn btn-default">Remove</button></a>
 <p>
 {% endfor %}
+Latest discussions: <br>
+<hr>
+{% for subject in topics %}
+<a href="/forum/{{ subject[0] }}">Subject: {{ subject[1] }}</a> <br>
+Created: {{ subject[2].strftime("%Y-%m-%d %H:%M:%S") }} <br>
+<hr>
+{% endfor %}
+
 You can submit your labs and make queries<br>
-<a href="/submitlabs">Submit Labs</a> | <a href="/query">Make Queries</a>| <a href="/logout">Logout</a>
+<a href="/submitlabs">Submit Labs</a> | <a href="/query">Make Queries</a> | <a href="/forum">Discuss </a> | <a href="/logout">Logout</a>
 {% else %}
 <a href="/login">Log in</a>
 {% endif %}
