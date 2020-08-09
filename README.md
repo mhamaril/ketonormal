@@ -1,5 +1,4 @@
-# tsoha-visitors
-Keto normal
+# Keto normal
 
 Sovellus herokussa: https://ketonormal.herokuapp.com/
 
