@@ -2,6 +2,19 @@
 
 Sovellus herokussa: https://ketonormal.herokuapp.com/
 
+su 9.8.2020	Välipalautus 2
+
+Sovelluksessa on toimiva rekisteröinti ja sisäänkirjautuminen. Kaikki sovelluksen sivut vaatii sisäänkirjautumisen paitsi infosivu. Jos yrittää rekisteröidä samalla käyttäjänimellä niin tulee virhe viesti(korjattu omalla koneella, ei herokussa).
+
+Mypage sivulla pitäisi näkyä vain omat labrat, mutta nyt siellä näkyy kaikkien labrojen nimet. Klikatessa labran nimeä avautuu sivu missä on kyseisen labran kaikki arvot. Tällä sivulla myös tulee näkymään 3 viimeisintä keskustelua, joihin voi siirtyä suoraan otsikkoa klikkaamalla.
+
+Submit Labs- toimii halutulla tavalla, paitsi jos ei täytä kaikkia kohtia. Se lisää tietokantaan annetut arvot
+
+Make Queries toimii ja se laskee raja-arvot valituilla parametreilla, paitsi jos ei laita kaikki kysyttyjä arvoja.
+
+Discuss ei sisällä vielä toiminnallisuuksia. Sinne tulee keskustelufoorumi. Siellä tavallinen käyttäjä voi osallistua keskusteluun ja poistaa omat viestinsä, mutta admin oikeuksilla varustettu käyttäjä voi poistaa kaikkien viestejä.
+
+su 26.7.2020 Välipalautus 1
 Tietokantasovellus, johon tallennetaan verikokeen tulokset ja se laskee kullekin arvolle uudet perusterveiden viitearvot tälle tietylle käyttäjäryhmälle.
 
 -Nykyiset viite-arvot on määritelty koko väestön perusterveiden mukaan. Tämä sovellus kerää verikokeiden tuloksia ihmisiltä, jotka ovat vähähiilihydraattisella ruokavaliolla. Esimerkikisi kolesteroliarvot ovat tällaisilla ihmisillä usein korkeammat kuin vähärasvaista ruokavaliota noudattavilla. Haluan määritellä mitkä ovat viite-arvot tällaisellä ihmisryhmällä.
