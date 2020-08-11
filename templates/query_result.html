@@ -1,4 +1,4 @@
-
+{% if session.user_id %}
 <h3>With the chosen paremeters reference ranges are as follows.</h3>
 {{ sex }}<br>
 {% if age == 'under' %}
@@ -34,7 +34,7 @@
     More than 14 Hours Fasted<br>
 {% endif %}
 {% if hours_fasted == 'all_hours' %}
-    All Fasting times<br>
+    All Fasting Times<br>
 {% endif %}
 
 {% if crp == 'good' %}
@@ -73,3 +73,6 @@ Triglycerides: Lower limit ({{ result[9]|round(1, 'common') }}) Average ({{ resu
 {% endfor %}
 <hr>
 <a href="/mypage">Back</a>
+{% else %}
+<a href="/login">Login</a> 
+{% endif %}
