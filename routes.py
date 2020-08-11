@@ -12,12 +12,8 @@ def index():
 @app.route("/login", methods=["get","post"])
 def login():
     if request.method == "GET":
-        count = labs.get_count()
-        total = labs.ave_total()
-        ldl = labs.ave_ldl()
-        hdl = labs.ave_hdl()
-        triglyt = labs.ave_triglyt()
-        return render_template("login.html", count=count, total  = total, ldl = ldl, hdl = hdl, triglyt = triglyt)
+        averages = labs.get_averages()
+        return render_template("login.html", averages=averages)
 
     if request.method == "POST":
         username = request.form["username"]
@@ -28,12 +24,13 @@ def login():
             return render_template("error.html",message="Wrong username or password")
 
 @app.route("/mypage", methods=["GET","POST"])
-def mypage():
+def mypage():   #user_id
 #    if request.method == "POST":
 #        remove nappi
-    lab_names = labs.get_labNames()
+#    user_id = users.user_id()
+    lab_names = labs.get_labNames() #user_id
     #topics = forum.get_topics()
-    return render_template("mypage.html", lab_names = lab_names) #, topics = topics
+    return render_template("mypage.html", lab_names = lab_names) #, topics = topics, user_id = user_id
 
 @app.route("/results/<string:lab_name>")
 def lab_name(lab_name):
@@ -72,7 +69,7 @@ def register():
         if users.register(username,password):
             return redirect("/mypage")
         else:
-            return render_template("error.html",message="Something went wrong, try again")
+            return render_template("error.html",message="Username Is Already Taken")
 
 @app.route("/submitlabs")
 def submit():
@@ -80,19 +77,15 @@ def submit():
 
 @app.route("/result", methods=["POST"])
 def send_values():
-    if request.form["sex"] == "1":
-        sex = "Male"
-    elif request.form["sex"] == "2":
-        sex = "Female"
-    else:
-        sex = "Undisclosed"
-
+    
+    sex = request.form["sex"]
     lab_name = request.form["lab_name"]
     user_id = users.user_id()
     age = request.form["age"]
     diet = request.form["diet"]
     hours_fasted = request.form["hours_fasted"]
     crp = request.form["crp"]
+    
     if request.form["units"]=="usa":
         units = "usa"
         total = request.form["total"]

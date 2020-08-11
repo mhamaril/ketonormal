@@ -1,34 +1,14 @@
 from db import db
 import users
-
-def get_count():
-    result = db.session.execute("SELECT COUNT(*) FROM labvalues")
-    return result.fetchone()[0]
-
-def ave_total():
-    result = db.session.execute("SELECT AVG(total) FROM labvalues")
-    return result.fetchone()[0]
-
-def ave_ldl():
-    result = db.session.execute("SELECT AVG(ldl) FROM labvalues")
-    return result.fetchone()[0]
-
-def ave_hdl():
-    result = db.session.execute("SELECT AVG(hdl) FROM labvalues")
-    return result.fetchone()[0]
-
-def ave_triglyt():
-    result = db.session.execute("SELECT AVG(triglyt) FROM labvalues")
-    return result.fetchone()[0]
-
-"""     
+    
 def get_averages():
-    result = db.session.execute("SELECT AVG(total), AVG(ldl), AVG(hdl), AVG(triglyt) FROM labvalues")
+    result = db.session.execute("SELECT COUNT(*), AVG(total), AVG(ldl), AVG(hdl), AVG(triglyt) FROM labvalues")
     return result.fetchall()
- """
-def get_labNames():
-    sql = "SELECT L.lab_name FROM labvalues L, users U WHERE L.user_id=U.id ORDER BY L.lab_name"
-    result = db.session.execute(sql)
+
+def get_labNames(): #user_id
+    
+    sql = "SELECT L.lab_name FROM labvalues L, users U WHERE L.user_id = U.id ORDER BY L.lab_name"
+    result = db.session.execute(sql) #, {"user_id":user_id}
     return result.fetchall()
 
 def get_values(lab_name):
@@ -83,53 +63,6 @@ def get_query_total(sex, age, diet, hours_fasted, crp, units):
     sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total), AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl), AVG(hdl)-1.96*STDDEV(hdl), AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl), AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), AVG(triglyt)+1.96*STDDEV(triglyt) FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND diet = :diet AND hours_fasted BETWEEN :minHours AND :maxHours AND crp BETWEEN :minCRP AND :maxCRP"
     result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "diet":diet, "minHours":minHours, "maxHours":maxHours, "minCRP":minCRP, "maxCRP":maxCRP, "units":units})
     return result.fetchall()
-
-""" def get_query(sex, age, hours_fasted, crp):
-    minAge = 0
-    maxAge = 0
-    minHours = 0
-    maxHours = 0
-    minCRP = 0
-    maxCRP = 0
-    if age == "under":
-        minAge = 10
-        maxAge = 39
-    if age == "40to59":
-        minAge = 40
-        maxAge = 59
-    if age == "over60":
-        minAge = 60
-        maxAge = 130
-    if age == "all_ages":
-        minAge = 0
-        maxAge = 130
-    if hours_fasted == "under":
-        minHours = 0
-        maxHours = 11
-    if hours_fasted == "between":
-        minHours = 12
-        maxHours = 14
-    if hours_fasted == "over":
-        minHours = 15
-        maxHours = 999
-    if hours_fasted == "all_hours":
-        minHours = 0
-        maxHours = 999
-    if crp == "good":
-        minCRP = 0
-        maxCRP = 1
-    if crp == "normal":
-        minCRP = 1
-        maxCRP = 3
-    if crp == "higher":
-        minCRP = 3
-        maxCRP = 999
-    if crp == "all_crp":
-        minCRP = 0
-        maxCRP = 999
-    sql = "SELECT total, ldl, hdl, triglyt FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND hours_fasted BETWEEN :minHours AND :maxHours AND crp BETWEEN :minCRP AND :maxCRP"
-    result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "minHours":minHours, "maxHours":maxHours, "minCRP":minCRP, "maxCRP":maxCRP})
-    return result.fetchall() """
 
 def send_values(lab_name, user_id, sex, age, diet, hours_fasted, units, total, ldl, hdl, triglyt, crp):
     user_id = users.user_id()
