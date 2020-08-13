@@ -5,14 +5,16 @@
 <hr>
 Latest discussions: <br>
 <hr>
-{% for subject in topics %}
-Aihe: {{ subject[1] }} <br>
-Luotu: {{ subject[2].strftime("%Y-%m-%d %H:%M:%S") }} <br>
-<a href="/forum/{{ subject[0] }}">Mene kyselyyn</a> |
+{% for message in messages %}
+Topic: {{ message[1] }} <br>
+Latest post: {{ message[3]}} from {{ message[2] }}<br>
+{{ message[4].strftime("%Y-%m-%d %H:%M:%S")  }}<br>
+<a href="/topic/{{ message[0] }}">Reply</a>
+
 <hr>
 {% endfor %}
 
-<a href="/submitlabs">Submit Labs</a> | <a href="/query">Make Queries</a> | <a href="/logout">Logout</a>
+<a href="/mypage">Mypage</a> | <a href="/submitlabs">Submit Labs</a> | <a href="/query">Make Queries</a> | <a href="/logout">Logout</a>
 {% else %}
 <a href="/login">Log in</a>
 {% endif %}

@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect
-import labs, users, forum
+import labs, users, messages
 from db import db
 
 
@@ -23,20 +23,24 @@ def login():
         else:
             return render_template("error.html",message="Wrong username or password")
 
-@app.route("/mypage", methods=["GET","POST"])
-def mypage():   #user_id
-#    if request.method == "POST":
-#        remove nappi
-#    user_id = users.user_id()
-    lab_names = labs.get_labNames() #user_id
-    #topics = forum.get_topics()
-    return render_template("mypage.html", lab_names = lab_names) #, topics = topics, user_id = user_id
-
-@app.route("/results/<string:lab_name>")
-def lab_name(lab_name):
-    lab_name = labs.get_values(lab_name)
-    
+@app.route("/mypage")
+def mypage():  
+    user_id = users.user_id()
+    lab_names = labs.get_lab_names(user_id)
+    lista = messages.get_limited_list()
+    table = labs.read_table()
+    return render_template("mypage.html", lab_names = lab_names, messages = lista, table = table)
+ 
+@app.route("/results/<int:id>")
+def lab_name(id):
+    lab_name = labs.get_values(id)
     return render_template("results.html", lab_name = lab_name)
+
+@app.route("/topic/<int:id>")
+def topic(id):
+    topic = messages.get_messages(id)
+    return render_template("topic.html", topic = topic)
+
 
 @app.route("/query")
 def query():
@@ -111,18 +115,22 @@ def send_values():
 def info():
     return render_template("info.html")
 
-@app.route("/send", methods=["post"])
-def send():
-    content = request.form["content"]
-    if messages.send(content):
-        list = messages.get_list()
-        return render_template("messages.html", count=len(list), messages=list)
-    else:
-        return render_template("error.html",message="Viestin lähetys ei onnistunut")
-
-@app.route("/forum")
-def forum():
-    return render_template("forum.html")
 @app.route("/new")
 def new():
-    return render_template("new_query.html")
+    return render_template("new.html")
+
+@app.route("/send", methods=["post"])
+def send():
+    topic = request.form["topic"]
+    content = request.form["content"]
+    if messages.send(topic, content):
+        return redirect("/forum")
+    else:
+        return render_template("error.html",message="Viestin lähetys ei onnistunut")
+    
+ 
+@app.route("/forum")
+def forum():
+    lista = messages.get_list()
+    return render_template("forum.html", messages = lista)
+

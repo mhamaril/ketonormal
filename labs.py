@@ -1,19 +1,21 @@
 from db import db
 import users
+import pandas as pd
+from os import getenv
     
 def get_averages():
     result = db.session.execute("SELECT COUNT(*), AVG(total), AVG(ldl), AVG(hdl), AVG(triglyt) FROM labvalues")
     return result.fetchall()
 
-def get_labNames(): #user_id
+def get_lab_names(user_id):
     
-    sql = "SELECT L.lab_name FROM labvalues L, users U WHERE L.user_id = U.id ORDER BY L.lab_name"
-    result = db.session.execute(sql) #, {"user_id":user_id}
+    sql = "SELECT id, lab_name FROM labvalues WHERE user_id = :user_id ORDER BY lab_name"
+    result = db.session.execute(sql, {"user_id":user_id}) 
     return result.fetchall()
 
-def get_values(lab_name):
-    sql = "SELECT L.lab_name, L.sex, L.age, L.diet, L.hours_fasted, L.units, L.total, L.ldl, L.hdl, L.triglyt, L.crp FROM labvalues L, users U WHERE L.user_id=U.id AND L.lab_name = :lab_name"
-    result = db.session.execute(sql, {"lab_name":lab_name})
+def get_values(id): # ehkä pitää muuttaa id:ksi
+    sql = "SELECT L.id, L.lab_name, L.sex, L.age, L.diet, L.hours_fasted, L.units, L.total, L.ldl, L.hdl, L.triglyt, L.crp FROM labvalues L, users U WHERE L.user_id=U.id AND L.id = :id"
+    result = db.session.execute(sql, {"id":id})
     return result.fetchall()
 
 def get_query_total(sex, age, diet, hours_fasted, crp, units):
@@ -84,23 +86,9 @@ def send_values(lab_name, user_id, sex, age, diet, hours_fasted, units, total, l
     db.session.commit()
     return True
 
-""" def query(sex, age, diet, hours_fasted, units, crp):
-    if sex == "male":
-        sexChosen == "Male"
-    if sex == "female":
-        sexChosen == "Female"
-    if sex == "all_sexes"
-        sexChosen == "*"
 
-    if units == "usa":
-        total = float(total)/38.67
-        ldl = float(ldl)/38.67
-        hdl = float(hdl)/38.67
-        triglyt = float(triglyt)/38.67
-    sql = "SELECT L.total, L.ldl, L.hdl, L.triglyt FROM labvalues L, users U WHERE L.age BETWEEN :min AND :max AND L.hours_fasted BETWEEN :f_min AND :f_max AND L.crp BETWEEN :min_crp AND :max_crp AND L.sex = :sexChosen AND L.total = :total AND L.ldl = :ldl AND L.hdl = :hdl AND L.triglyt = :triglyt"
-    result = db.session.execute(sql, {"lab_name":lab_name})
-    return result.fetchall()
-    
- """
-
- 
+#Mahdollista myöhempää käyttöä varten jos haluan liittää kuvaajia
+def read_table():
+    osoite = getenv("DATABASE_URL")
+    data = pd.read_sql_table('messages', osoite)  
+    return data.head()
