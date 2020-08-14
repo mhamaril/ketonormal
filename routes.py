@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, flash
 import labs, users, messages
 from db import db
 import os
@@ -38,11 +38,16 @@ def lab_name(id):
     lab_name = labs.get_values(id)
     return render_template("results.html", lab_name = lab_name)
 
-@app.route("/topic/<int:id>")
+@app.route("/topic/<int:id>", methods=["GET","POST"])
 def topic(id):
-    topic = messages.get_messages(id)
-    return render_template("topic.html", topic = topic)
-
+    if request.method == "GET":
+        topic = messages.get_messages(id)
+        lista = messages.get_list()
+        return render_template("topic.html", topic = topic, messages = lista)
+    if request.method == "POST":
+        content = request.form["content"]
+        topic = request.form["topic"]
+        return redirect("/topic/"+str(id))
 
 @app.route("/query")
 def query():
@@ -109,7 +114,8 @@ def send_values():
         hdl = request.form["hdl"]
         triglyt = request.form["triglyt"]
     if labs.send_values(lab_name, user_id, sex, age, diet, hours_fasted, units, total, ldl, hdl, triglyt, crp):
-        return render_template("result.html", lab_name = lab_name, sex = sex, age = age, diet = diet, hours_fasted = hours_fasted, units = units, total = total, ldl = ldl, hdl = hdl, triglyt = triglyt, crp=crp)
+        flash('Labs were successfully submitted')
+        return redirect("/mypage")
     else:
         return render_template("error.html",message="Something went wrong")
         
