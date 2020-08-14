@@ -1,3 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Results{% endblock %}
+{% block navbar %}
+	<li class="nav-item active">
+		<a class="nav-link" href="/mypage">My Page</a>
+	</li>
+	<li class="nav-item active">
+		<a class="nav-link" href="/query">Make Queries<span class="sr-only"></span></a>
+	</li>
+	<li class="nav-item active">
+		<a class="nav-link" href="/forum">Forum<span class="sr-only"></span></a>
+	</li>
+{% endblock %}
+
+{% block content %}
 {% for result in lab_name %}
 <h3>{{ result[1] }}</h3>
 Sex: {{ result[2] }}<br>
@@ -11,10 +26,5 @@ HDL Cholesterol: {{ result[9] }}<br>
 Triglycerides: {{ result[10] }}<br>
 CRP: {{ result[11] }}<br>
 <button type="submit" class="btn btn-default">Remove</button></a>
-
-<p></p>
-
 {% endfor %}
-</ul>
-<hr>
-<a href="/mypage">Back</a>
+{% endblock %}

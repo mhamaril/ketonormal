@@ -1,9 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}My Page{% endblock %}
+{% block navbar %}
+	<li class="nav-item active">
+		<a class="nav-link" href="/submitlabs">Submit Labs</a>
+	</li>
+	<li class="nav-item active">
+		<a class="nav-link" href="/query">Make Queries<span class="sr-only"></span></a>
+	</li>
+	<li class="nav-item active">
+		<a class="nav-link" href="/forum">Forum<span class="sr-only"></span></a>
+	</li>
+{% endblock %}
+
+{% block content %}
 <h3>{{ lab_name }}</h3>
 
-Sex {{ sex }}
-<p>
-Diet {{ diet }}
-<p>
+Gender: {{ sex }}
+<p></p>
+Diet: {{ diet }}
+<p></p>
 Age {{ age }}
 <p></p>
 Total hours water-only fasted before this test: {{ hours }}
@@ -19,3 +34,4 @@ HDL Cholesterol: {{ hdl }}
 Triglycerides: {{ trigly }} <br>
 <p></p>
 <a href="/mypage">Back</a>
+{% endblock %}

@@ -1,4 +1,17 @@
-{% if session.user_id %}
+{% extends "layout.html" %}
+{% block title %}Submit Labs{% endblock %}
+{% block navbar %}
+	<li class="nav-item active">
+		<a class="nav-link" href="/mypage">My Page</a>
+	</li>
+	<li class="nav-item active">
+		<a class="nav-link" href="/query">Make Queries<span class="sr-only"></span></a>
+	</li>
+	<li class="nav-item active">
+		<a class="nav-link" href="/forum">Forum<span class="sr-only"></span></a>
+	</li>
+{% endblock %}
+{% block content %}
 <form action="/result" method="POST">
     <header>
         <h3>Submit your lab values</h3>
@@ -58,7 +71,4 @@
             <input type="submit" value="Submit"> <a href="/mypage">Back</a>
             <p>
     </form>
-
-{% else %}
-<a href="/login">Log in</a>
-{% endif %}
+{% endblock %}

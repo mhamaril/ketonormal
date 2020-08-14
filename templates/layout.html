@@ -1,8 +1,54 @@
 <!doctype html>
-<title>Keto normal - {% block title %}{% endblock %}</title>
-<h1>Keto normal range</h1>
+<html lang="en">
+<head>
+  <title>Ketonormal - {% block title %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+{% with flash_messages = get_flashed_messages() %}
+  {% if flash_messages %}
+<div>  
+    <div class="alert alert-warning alert-dismissible" role="alert">
+    {% for flash_message in flash_messages %}
+    <li>{{ flash_message }}</li>
+    {% endfor %}
+    </ul>
+</div>
+  {% endif %}
+{% endwith %}
+{% if session.user_id %}
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+		<ul class="navbar-nav ml-auto">
+		    <a class="navbar-brand" href="#">
+                <img src="logo.jpg" width="30" height="30" class="d-inline-block align-top" alt=""></a>
+                {% block navbar %}
+                {% endblock %}
+        </ul>
+    </div>
+</nav>
 
-<hr>
-{% block content %}{% endblock %}
-<hr>
-Discuss your results <a href="/messages">here</a>
+
+
+{% block content %}
+
+{% endblock %}
+
+
+<nav class="navbar fixed-bottom navbar-right navbar-expand-sm navbar-dark bg-dark">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link"href="/logout">Logout<span class="sr-only"></span></a>
+      </li>
+    </ul>
+</nav>
+
+</body>
+{% else %}
+<a href="/login">Log in</a>
+{% endif %}

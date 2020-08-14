@@ -1,4 +1,18 @@
-{% if session.user_id %}
+{% extends "layout.html" %}
+{% block title %}Query Results{% endblock %}
+{% block navbar %}
+	<li class="nav-item active">
+		<a class="nav-link" href="/mypage">My Page<span class="sr-only"></span></a>
+    </li>
+    <li class="nav-item active">
+		<a class="nav-link" href="/submitlabs">Submit Labs</a>
+	</li>
+	<li class="nav-item active">
+		<a class="nav-link" href="/forum">Forum<span class="sr-only"></span></a>
+	</li>
+{% endblock %}
+
+{% block content %}
 <h3>With the chosen paremeters reference ranges are as follows.</h3>
 {{ sex }}<br>
 {% if age == 'under' %}
@@ -69,10 +83,6 @@ HDL Cholesterol: Lower limit ({{ result[6]|round(1, 'common') }}) Average ({{ re
 Triglycerides: Lower limit ({{ result[9]|round(1, 'common') }}) Average ({{ result[10]|round(1, 'common') }}) Upper limit ({{ result[11]|round(1, 'common') }})<br>
 <p></p>
 {% endif %}
-
 {% endfor %}
-<hr>
-<a href="/mypage">Back</a>
-{% else %}
-<a href="/login">Login</a> 
-{% endif %}
+{% endblock %}
+

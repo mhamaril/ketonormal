@@ -1,14 +1,60 @@
+{% extends "layout.html" %}
+{% block title %}My Page{% endblock %}
+{% block navbar %}
+	<li class="nav-item active">
+		<a class="nav-link" href="/submitlabs">Submit Labs</a>
+	</li>
+	<li class="nav-item active">
+		<a class="nav-link" href="/query">Make Queries<span class="sr-only"></span></a>
+	</li>
+	<li class="nav-item active">
+		<a class="nav-link" href="/forum">Forum<span class="sr-only"></span></a>
+	</li>
+{% endblock %}
 
-<hr>
-{% for message in topic %}
-Topic:
-{{ message[1] }} <br>
-Message:
-{{ message[2] }} <br>
-Posted by: {{ message[3].strftime("%Y-%m-%d %H:%M:%S") }}<br>
-<hr>
-{% endfor %}
-<p>
-    <input type="submit" value="Reply">
-<hr>
-<a href="/forum">Back</a>
+{% block content %}
+<main role="main" class="container-fluid">
+	<div class="row">
+		<div class="col-md-3 p-3 mb-3 bg-light rounded">
+            <h4>Latest discussions:</h4>
+            <hr>
+            {% for message in messages %}
+            <h5><a href="/topic/{{ message[0] }}">{{ message[1] }}</a></h5>
+            Latest post: {{ message[3]}}<br>
+            From {{ message[2] }}  {{ message[4].strftime("%Y-%m-%d %H:%M:%S")  }}<br>
+            <hr>
+            {% endfor %}
+		
+			<p></p>
+		</div>
+		<aside class="col-md-9 p-3 mb-3 blog-sidebar">
+			<div class="col-md-8 blog-main">
+				<h4 class="pb-3 mb-4 border-bottom">
+                    {% for message in topic %}
+                    Topic
+				</h4>
+				<div class="blog-post">
+					
+					<h4 class="blog-post-title">{{ message[1] }}</h4>
+					<p>{{ message[2]}} </p>
+                    <p class="blog-post-meta">{{ message[3].strftime("%Y-%m-%d %H:%M:%S")  }}</p>
+                    <hr>
+                    <form action="/send" method="POST">
+                        <textarea placeholder="Reply" name="content" required rows="2" cols="50"></textarea><p></p>
+                        <input type="submit" value="Submit"> 
+                        <input type="hidden" name="topic" value="{{ message[1] }}">
+                    </form>
+					
+					{% endfor %} 
+					
+				</div><!-- /.blog-sidebar -->
+			  </div><!-- /.blog-main -->
+			
+		</aside>
+	</div> <!-- /.row -->
+
+</main><!-- /.container -->
+
+
+
+{% endblock %}

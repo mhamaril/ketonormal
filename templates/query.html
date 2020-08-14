@@ -1,67 +1,69 @@
-<h3>Here you can make queries</h3><br>
+{% extends "layout.html" %}
+{% block title %}Query{% endblock %}
+{% block navbar %}
+	<li class="nav-item active">
+		<a class="nav-link" href="/mypage">My Page</a>
+	</li>
+	<li class="nav-item active">
+		<a class="nav-link" href="/submitlabs">Submit Labs<span class="sr-only"></span></a>
+	</li>
+	<li class="nav-item active">
+		<a class="nav-link" href="/forum">Forum<span class="sr-only"></span></a>
+	</li>
+{% endblock %}
+{% block content %}
+<h4>Select your variables</h4>
 <p></p>
-
-{% if session.user_id %}
 <form action="/query_result" method="POST">
-    <header>
-        <h3>Check all the boxes you want to include into your query</h3>
-    </header>
     <p> 
-        Choose gender:
-        <select required name="sex">
+    Choose gender:
+    <select required name="sex">
         <option value="">Choose Gender</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
-        </select>
-        <p>
-            Choose age:
-            <select name="age">
-            <option value="all_ages">All</option>
-            <option value="under">10-39</option>
-            <option value="40to59">40-59</option>
-            <option value="over60">Over 60</option>
-            
-            </select>
-            <p>
-                Choose diet:
-                <select required name="diet">
-                    <option value="">Select Diet</option>
-                    <option value="LCHF">LCHF (20g to 120g carbs)</option>
-                    <option value="keto">Keto (less than 50g carbs)</option>
-                    <option value="zero">Carnivore (aka zero carbs)</option>
-                    </select>
-                    <p></p>
-                Hours fasted:
-                <select name="hours_fasted">
-                <option value="all_hours">All</option>
-                <option value="under">Less than 12 Hours</option>
-                <option value="between">12-14 Hours</option>
-                <option value="over">Over 14 Hours</option>
-                
-                </select>
-                <p></p>
-                
-                <p>
-                    Choose CRP:
-                    <select name="crp">
-                    <option value="all_crp">All</option>
-                    <option value="good">Below 1.0</option>
-                    <option value="normal">Between 1-3</option>
-                    <option value="higher">Over 3</option>
-                    
-                    </select>
-                <p> 
-                    Units of measurement:
-                    <select required name="units">
-                    <option value="">Select Units</option>    
-                    <option value="usa">mg/dL (Common for USA)</option>
-                    <option value="int">mmol/L (Common for International)</option>
-                    </select>
-                <p>
-                    By clicking "Submit" you acknowledge this in no way constitutes medical advice.<br>
-                    <p></p>
-                    <input type="submit" value="Submit"> | <a href="/mypage">Back</a>  
-        </form>
-{% else %}
-<a href="/login">Login</a> 
-{% endif %}
+    </select>
+    <p>
+    Choose age:
+    <select name="age">
+        <option value="all_ages">All</option>
+        <option value="under">10-39</option>
+        <option value="40to59">40-59</option>
+        <option value="over60">Over 60</option>
+    </select>
+    <p>
+    Choose diet:
+    <select required name="diet">
+        <option value="">Select Diet</option>
+        <option value="LCHF">LCHF (20g to 120g carbs)</option>
+        <option value="keto">Keto (less than 50g carbs)</option>
+        <option value="zero">Carnivore (aka zero carbs)</option>
+    </select>
+    <p></p>
+    Hours fasted:
+    <select name="hours_fasted">
+        <option value="all_hours">All</option>
+        <option value="under">Less than 12 Hours</option>
+        <option value="between">12-14 Hours</option>
+        <option value="over">Over 14 Hours</option>
+    </select>
+    <p></p>
+    Choose CRP:
+    <select name="crp">
+        <option value="all_crp">All</option>
+        <option value="good">Below 1.0</option>
+        <option value="normal">Between 1-3</option>
+        <option value="higher">Over 3</option>
+    </select>
+    <p> </p>
+     Units of measurement:
+    <select required name="units">
+        <option value="">Select Units</option>    
+        <option value="usa">mg/dL (Common for USA)</option>
+        <option value="int">mmol/L (Common for International)</option>
+    </select>
+    <p></p>
+    By clicking "Submit" you acknowledge this in no way constitutes medical advice.<br>
+    <p></p>
+    <input type="submit" value="Submit"> | <a href="/mypage">Back</a>  
+</form>
+{% endblock %}
