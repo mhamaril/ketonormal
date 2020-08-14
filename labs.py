@@ -19,7 +19,6 @@ def get_values(id): # ehkä pitää muuttaa id:ksi
     return result.fetchall()
 
 def get_query_total(sex, age, diet, hours_fasted, crp, units):
-    
     minAge = 0
     maxAge = 0
     minHours = 0
