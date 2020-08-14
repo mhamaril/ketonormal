@@ -1,88 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Mypage</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-	<link href="style.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://m.w3newbie.com/you-tube.css">
+  <title>My Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
-
-<!-- Navigation -->
-
-
-<!--- Image Slider -->
-
-
-<!--- Jumbotron -->
-
-
-<!--- Welcome Section -->
-
-
-<!--- Three Column Section -->
-
-
-<!--- Two Column Section -->
-
-
-<!--- Fixed background -->
-
-
-<!--- Emoji Section -->
-
-  
-<!--- Meet the team -->
-
-
-<!--- Cards -->
-
-
-<!--- Two Column Section -->
-
-
-<!--- Connect -->
-
-
-<!--- Footer -->
-
-
-
-
-</body>
-</html>
-
-
-
+	<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+		   	
+        
+        
+            <ul class="navbar-nav ml-auto">
+				<a class="navbar-brand" href="#">
+					<img src="logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+					
+				  </a>
+                <li class="nav-item active">
+					<a class="nav-link" href="/submitlabs">Submit Labs</a>
+                </li>
+				<li class="nav-item active">
+					<a class="nav-link" href="/query">Make Queries<span class="sr-only"></span></a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="/forum">Forum<span class="sr-only"></span></a>
+				</li>
+            </ul>
+        
+    </div>
+</nav>
 
 {% if session.user_id %}
-<h2>Hello, {{ session.username  }}!</h2><br>
-Here are your labs:<br>
-<p>
-{% for labname in lab_names %}
-<a href="/results/{{ labname[0] }}">{{ labname[1] }} </a> 
-<p>
-{% endfor %}
-<hr>
-Latest discussions: <br>
+<div class="container-fluid">
+	<div class="text-left">
+		<h2>Welcome!</h2><br>
+	</div>
+	
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3 p-3 mb-3 bg-light rounded">
+			<svg width="6em" height="6em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				<path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+			</svg> <br>
+			{{ session.username  }}<br>
+			
+			Age:<br>
+			Gender:<br>
+			Diet:<br>
+			Units:<br>
 
-{% for message in messages %}
-Topic: {{ message[1] }} <br>
-Latest post from {{ message[2] }}:<br>
-{{ message[3]}} <br>
-{{ message[4].strftime("%Y-%m-%d %H:%M:%S")  }}<br>
-<a href="/topic/{{ message[0] }}">Reply</a><br>
-{% endfor %}
+		</div>
+		<aside class="col-md-9 blog-sidebar">
+			<div class="col-md-8 blog-main">
+				<h3 class="pb-3 mb-4">
+				Tähän joku kuva
+				</h3>
+		</aside>
+	</div>
+</div>
+<p>
+
 <hr>
-You can submit your labs and make queries<br>
-<a href="/submitlabs">Submit Labs</a> | <a href="/query">Make Queries</a> | <a href="/forum">Discuss </a> | <a href="/logout">Logout</a>
+
+<main role="main" class="container-fluid">
+	<div class="row">
+		<div class="col-md-3 p-3 mb-3 bg-light rounded">
+			<h4>Here are your labs:</h4>
+			{% for labname in lab_names %}
+			<a href="/results/{{ labname[0] }}">{{ labname[1] }} </a> <br>
+			<p></p>
+			{% endfor %}
+			<p></p>
+		</div>
+		<aside class="col-md-9 blog-sidebar">
+			<div class="col-md-8 blog-main">
+				<h3 class="pb-3 mb-4 border-bottom">
+				Latest discussions:
+				</h3>
+				<div class="blog-post">
+					{% for message in messages %}
+					<h4 class="blog-post-title">{{ message[1] }}</h4>
+					<p>{{ message[3]}} </p>
+					<p class="blog-post-meta">{{ message[4].strftime("%Y-%m-%d %H:%M:%S")  }} from {{ message[2] }} </p>
+					<a href="/topic/{{ message[0] }}">Reply</a><br>
+					<hr>
+					{% endfor %} 
+					<hr>
+				</div><!-- /.blog-sidebar -->
+			  </div><!-- /.blog-main -->
+			
+		</aside>
+	</div> <!-- /.row -->
+
+</main><!-- /.container -->
+<nav class="navbar fixed-bottom navbar-right navbar-expand-sm navbar-dark bg-dark">
+	  <ul class="navbar-nav ml-auto">
+		<li class="nav-item active">
+		  <a class="nav-link"href="/logout">Logout<span class="sr-only"></span></a>
+		</li>
+	  </ul>
+</nav>
 {% else %}
 <a href="/login">Log in</a>
 {% endif %}
-{{ table }}
+
+
+		
+		
+</body>
+</html>

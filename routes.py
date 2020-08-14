@@ -2,12 +2,14 @@ from app import app
 from flask import render_template, request, redirect
 import labs, users, messages
 from db import db
+import os
+from flask import send_from_directory
 
 
 @app.route("/")
 def index():
     
-    return redirect("login")
+    return render_template("login.html")
 
 @app.route("/login", methods=["get","post"])
 def login():
@@ -134,3 +136,13 @@ def forum():
     lista = messages.get_list()
     return render_template("forum.html", messages = lista)
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+                    
+@app.route('/logo.jpg')
+def logo():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'logo.jpg', mimetype='image/jpeg')
+                    

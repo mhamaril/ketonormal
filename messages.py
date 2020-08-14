@@ -2,12 +2,12 @@ from db import db
 import users
 
 def get_list():
-    sql = "SELECT M.id, M.topic, U.username, M.content, M.sent_at FROM messages M, users U WHERE M.user_id=U.id ORDER BY M.id"
+    sql = "SELECT M.id, M.topic, U.username, M.content, M.sent_at FROM messages M, users U WHERE M.user_id=U.id ORDER BY M.id DESC"
     result = db.session.execute(sql)
     return result.fetchall()
 
 def get_limited_list():
-    sql = "SELECT M.id, M.topic, U.username, M.content, M.sent_at FROM messages M, users U WHERE M.user_id=U.id ORDER BY M.id LIMIT 3"
+    sql = "SELECT M.id, M.topic, U.username, M.content, M.sent_at FROM messages M, users U WHERE M.user_id=U.id ORDER BY M.id DESC LIMIT 3"
     result = db.session.execute(sql)
     return result.fetchall()
 
@@ -22,7 +22,7 @@ def send(topic, content):
     return True
 
 def get_messages(id):
-    sql = "SELECT M.id, M.topic, M.content, M.sent_at FROM messages M WHERE M.id = :id ORDER BY M.sent_at"
+    sql = "SELECT M.id, M.topic, M.content, M.sent_at FROM messages M WHERE M.id = :id ORDER BY M.sent_at DESC"
     result = db.session.execute(sql, {"id":id})
     return result.fetchall()
 
