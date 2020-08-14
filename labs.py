@@ -13,7 +13,7 @@ def get_lab_names(user_id):
     result = db.session.execute(sql, {"user_id":user_id}) 
     return result.fetchall()
 
-def get_values(id): # ehkä pitää muuttaa id:ksi
+def get_values(id):
     sql = "SELECT L.id, L.lab_name, L.sex, L.age, L.diet, L.hours_fasted, L.units, L.total, L.ldl, L.hdl, L.triglyt, L.crp FROM labvalues L, users U WHERE L.user_id=U.id AND L.id = :id"
     result = db.session.execute(sql, {"id":id})
     return result.fetchall()

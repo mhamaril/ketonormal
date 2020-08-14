@@ -25,3 +25,13 @@ CREATE TABLE labvalues (
     triglyt REAL,
     crp REAL
 );
+CREATE TABLE profiles (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users,
+    age INTEGER,
+    gender TEXT,
+    diet TEXT,
+    units TEXT,
+    tiedostonimi TEXT,
+    kuva BYTEA
+);
