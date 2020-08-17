@@ -85,6 +85,11 @@ def send_values(lab_name, user_id, sex, age, diet, hours_fasted, units, total, l
     db.session.commit()
     return True
 
+def remove_lab(id):
+    sql = "DELETE FROM labvalues WHERE id = :id"
+    db.session.execute(sql, {"id":id})
+    db.session.commit()
+    return True
 
 #Mahdollista myöhempää käyttöä varten jos haluan liittää kuvaajia
 def read_table():

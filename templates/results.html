@@ -25,6 +25,11 @@ LDL Cholesterol: {{ result[8] }}<br>
 HDL Cholesterol: {{ result[9] }}<br>
 Triglycerides: {{ result[10] }}<br>
 CRP: {{ result[11] }}<br>
-<button type="submit" class="btn btn-default">Remove</button></a>
+<form action="/remove_lab" method="POST">
+	
+	<input type="submit" value="Remove"> 
+	<input type="hidden" name="id" value="{{ result[0] }}">
+</form>
+
 {% endfor %}
 {% endblock %}

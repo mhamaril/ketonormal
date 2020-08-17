@@ -36,18 +36,36 @@ def mypage():
 @app.route("/results/<int:id>")
 def lab_name(id):
     lab_name = labs.get_values(id)
+
     return render_template("results.html", lab_name = lab_name)
 
-@app.route("/topic/<int:id>", methods=["GET","POST"])
+@app.route("/remove_lab", methods=["POST"])
+def remove_lab():
+    id = request.form["id"]
+    
+    if labs.remove_lab(id):
+        return redirect("/mypage")
+    else:
+        return render_template("error.html",message="Something went wrong!")
+
+
+@app.route("/topic/<int:id>")
 def topic(id):
-    if request.method == "GET":
-        topic = messages.get_messages(id)
-        lista = messages.get_list()
-        return render_template("topic.html", topic = topic, messages = lista)
-    if request.method == "POST":
-        content = request.form["content"]
-        topic = request.form["topic"]
-        return redirect("/topic/"+str(id))
+    topic_id = messages.get_topic_id(id)
+    topic = messages.get_messages(id)
+    lista = messages.get_topics()
+    return render_template("topic.html", topic = topic,  messages = lista, topic_id = topic_id)
+
+    
+
+@app.route("/send_reply", methods=["POST"])
+def send_reply():
+    topic_id = request.form["topic_id"]
+    content = request.form["content"]
+    if messages.send_reply(topic_id, content):
+        return redirect("/topic/"+str(topic_id))
+    else:
+        return render_template("error.html",message="Viestin lähetys ei onnistunut")
 
 @app.route("/query")
 def query():
@@ -135,8 +153,7 @@ def send():
         return redirect("/forum")
     else:
         return render_template("error.html",message="Viestin lähetys ei onnistunut")
-    
- 
+
 @app.route("/forum")
 def forum():
     lista = messages.get_list()
@@ -151,4 +168,7 @@ def favicon():
 def logo():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'logo.jpg', mimetype='image/jpeg')
-                    
+                
+@app.route("/update_profile")
+def update_profile():
+    return render_template("update_profile.html")
