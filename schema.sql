@@ -3,9 +3,16 @@ CREATE TABLE users (
     username TEXT UNIQUE,
     password TEXT
 );
+create table topics (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users,
+    topic TEXT
+    created_at TIMESTAMP    
+);
+
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
-    topic TEXT,
+    topic_id INTEGER REFERENCES topics,
     content TEXT,
     user_id INTEGER REFERENCES users,
     sent_at TIMESTAMP

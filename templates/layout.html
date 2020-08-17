@@ -22,13 +22,19 @@
 {% endwith %}
 {% if session.user_id %}
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-md navbar-dark sticky-top" style="background-color: #0398fc;">
     <div class="container-fluid">
-		<ul class="navbar-nav ml-auto">
-		    <a class="navbar-brand" href="#">
-                <img src="logo.jpg" width="30" height="30" class="d-inline-block align-top" alt=""></a>
-                {% block navbar %}
-                {% endblock %}
+		    
+        
+          <ul class="navbar-nav ml-auto">
+            
+            {% block navbar %}
+            {% endblock %}
+            <li class="nav-item active">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+                
         </ul>
     </div>
 </nav>
@@ -39,13 +45,16 @@
 
 {% endblock %}
 
-
-<nav class="navbar fixed-bottom navbar-right navbar-expand-sm navbar-dark bg-dark">
-    <ul class="navbar-nav ml-auto">
+<nav class="navbar fixed-bottom text-center navbar-expand-sm navbar-dark" style="background-color: #0398fc;">
+<div class="container-fluid">
+    <ul class="navbar-nav justify-content-center">
       <li class="nav-item active">
-        <a class="nav-link"href="/logout">Logout<span class="sr-only"></span></a>
+        <span class="align-middle">
+          <p class="footer-text">© 2020 All Rights Reserved. Ketonormal<span class="sr-only">
+        </span>
       </li>
     </ul>
+  </div>
 </nav>
 
 </body>

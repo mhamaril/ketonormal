@@ -15,7 +15,7 @@
 {% block content %}
 <div class="container-fluid">
 	<div class="text-left">
-		<h2>Welcome!</h2><br>
+		<h3>Welcome!</h3><br>
 	</div>
 	
 </div>
@@ -31,7 +31,10 @@
 			Gender:<br>
 			Diet:<br>
 			Units:<br>
-
+			<form action="/update_profile">
+				<input type="submit" value="Update Profile"> <a href="/update_profile"></a>
+				
+			</form>
 		</div>
 		<aside class="col-md-9 blog-sidebar">
 			<div class="col-md-8 blog-main">
@@ -62,10 +65,10 @@
 				</h3>
 				<div class="blog-post">
 					{% for message in messages %}
-					<h4 class="blog-post-title">{{ message[1] }}</h4>
-					<p>{{ message[3]}} </p>
-					<p class="blog-post-meta">{{ message[4].strftime("%Y-%m-%d %H:%M:%S")  }} from {{ message[2] }} </p>
-					<a href="/topic/{{ message[0] }}">Reply</a><br>
+					<h4 class="blog-post-title">{{ message[0] }}</h4>
+					<p>{{ message[2]}} </p>
+					<p><a class="blog-post-meta">{{ message[3].strftime("%Y-%m-%d %H:%M:%S")  }} from {{ message[1] }} </p>
+					<a href="/topic/{{ message[4] }}">Reply</a>
 					<hr>
 					{% endfor %} 
 					
