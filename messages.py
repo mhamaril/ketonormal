@@ -8,7 +8,7 @@ def get_list():
 
 #Mypagen rajattu lista keskusteluista, TOIMII
 def get_limited_list():
-    sql = "SELECT T.topic, U.username, M.content, M.sent_at, T.id FROM messages M, users U, topics T WHERE M.user_id=U.id AND T.id = M.topic_id ORDER BY M.id DESC LIMIT 2"
+    sql = "SELECT T.topic, U.username, M.content, M.sent_at, T.id FROM messages M, users U, topics T WHERE M.user_id=U.id AND T.id = M.topic_id ORDER BY M.id DESC LIMIT 3"
     result = db.session.execute(sql)
     return result.fetchall()
 
@@ -36,7 +36,7 @@ def send_reply(topic_id, content):
 
 #tämä toimii, tällä saa kaikki viestit haettua aiheella
 def get_messages(id):
-    sql = "SELECT T.id, T.topic, M.content, U.username, M.sent_at FROM messages M, users U, topics T WHERE M.user_id = U.id AND  T.id = M.topic_id AND T.id = :id ORDER BY M.sent_at;"
+    sql = "SELECT T.id, T.topic, M.content, U.username, M.sent_at FROM messages M, users U, topics T WHERE M.user_id = U.id AND  T.id = M.topic_id AND T.id = :id ORDER BY M.sent_at DESC"
     result = db.session.execute(sql, {"id":id})
     return result.fetchall()
 
@@ -51,7 +51,4 @@ def get_topics():
     result = db.session.execute(sql)
     return result.fetchall()
 
-
-
-#"SELECT T.topic, FIRST_VALUE(M.content) OVER (PARTITION BY T.topic ORDER BY M.sent_at DESC limit 1) latest FROM messages M, topics T where T.id = M.topic_id;"
-#SELECT T.topic, FIRST_VALUE(M.content) OVER (PARTITION BY T.topic ORDER BY M.sent_at DESC) latest FROM messages M, topics T
+#SELECT DISTINCT T.topic, FIRST_VALUE(M.content) OVER (PARTITION BY T.topic ORDER BY M.sent_at DESC) AS latest FROM messages M, topics T where T.id = M.topic_id; 

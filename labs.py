@@ -2,6 +2,7 @@ from db import db
 import users
 import pandas as pd
 from os import getenv
+import json
     
 def get_averages():
     result = db.session.execute("SELECT COUNT(*), AVG(total), AVG(ldl), AVG(hdl), AVG(triglyt) FROM labvalues")
@@ -65,6 +66,56 @@ def get_query_total(sex, age, diet, hours_fasted, crp, units):
     result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "diet":diet, "minHours":minHours, "maxHours":maxHours, "minCRP":minCRP, "maxCRP":maxCRP, "units":units})
     return result.fetchall()
 
+def get_gender_from_profile(user_id):
+    
+    sql = "SELECT gender FROM profiles WHERE user_id=:user_id"
+    result = db.session.execute(sql, {"user_id":user_id})
+    return result.fetchone()[0]
+
+def get_age_from_profile():
+    user_id = users.user_id()
+    sql = "SELECT age FROM profiles WHERE user_id=:user_id"
+    result = db.session.execute(sql, {"user_id":user_id})
+    return result.fetchone()[0]
+
+def get_diet_from_profile():
+    user_id = users.user_id()
+    sql = "SELECT diet FROM profiles WHERE user_id=:user_id"
+    result = db.session.execute(sql, {"user_id":user_id})
+    return result.fetchone()[0]
+
+def get_units_from_profile():
+    user_id = users.user_id()
+    sql = "SELECT units FROM profiles WHERE user_id=:user_id"
+    result = db.session.execute(sql, {"user_id":user_id})
+    return result.fetchone()[0]
+
+def get_profile_ranges():
+    user_id = users.user_id()
+    sex = get_gender_from_profile()
+    age = get_age_from_profile()
+    diet = get_diet_from_profile()
+    units = get_units_from_profile()
+     
+    minAge = 0
+    maxAge = 0
+    
+    if age > 10 and age < 40:
+        minAge = 10
+        maxAge = 39
+    if age >= 40 and age < 60:
+        minAge = 40
+        maxAge = 59
+    if age >= 60:
+        minAge = 60
+        maxAge = 130
+    
+    
+    
+    sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total), AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl), AVG(hdl)-1.96*STDDEV(hdl), AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl), AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), AVG(triglyt)+1.96*STDDEV(triglyt) FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND diet = :diet AND hours_fasted BETWEEN 11 AND 15 AND crp BETWEEN 0 AND 3"
+    result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "diet":diet, "units":units})
+    return result.fetchall()
+
 def send_values(lab_name, user_id, sex, age, diet, hours_fasted, units, total, ldl, hdl, triglyt, crp):
     user_id = users.user_id()
     if user_id == 0:
@@ -93,6 +144,14 @@ def remove_lab(id):
 
 #Mahdollista myöhempää käyttöä varten jos haluan liittää kuvaajia
 def read_table():
-    osoite = getenv("DATABASE_URL")
-    data = pd.read_sql_table('messages', osoite)  
-    return data.head()
+    sql = "select total from labvalues"
+    db.session.execute(sql)
+    return json.dumps([dict(r) for r in sql])
+    """ osoite = getenv("DATABASE_URL")
+    data = pd.read_sql_query('SELECT id, total FROM labvalues' , osoite)  
+    result = data.to_json(orient="values")
+    parsed = json.loads(result)
+    return json.dumps(parsed, indent=4)  
+     """
+
+#SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total), AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl), AVG(hdl)-1.96*STDDEV(hdl), AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl), AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), AVG(triglyt)+1.96*STDDEV(triglyt) FROM labvalues WHERE sex = 'Male' AND age BETWEEN 10 AND 100 AND diet IN ('keto', 'zero', 'LCHF') AND hours_fasted BETWEEN 12 AND 14 AND crp BETWEEN 0.1 AND 3;
