@@ -23,8 +23,12 @@ def logout():
 def register(username,password):
     hash_value = generate_password_hash(password)
     try:
-        sql = "INSERT INTO users (username,password) VALUES (:username,:password)"
-        db.session.execute(sql, {"username":username,"password":hash_value})
+        sql = "INSERT INTO users (username,password, is_admin) VALUES (:username,:password, FALSE) RETURNING ID" 
+        result = db.session.execute(sql, {"username":username,"password":hash_value})
+        user_id = result.fetchone()[0]
+       
+        sql = "INSERT INTO profiles (user_id, age, gender, diet, units) VALUES (:user_id, NULL, '', '', '')"
+        db.session.execute(sql, {"user_id":user_id})
         db.session.commit()
     except:
         return False
@@ -33,3 +37,11 @@ def register(username,password):
 def user_id():
     return session.get("user_id",0)
 
+def update(age, gender, diet, units, user_id):
+    
+    if user_id == 0:
+        return False
+    sql = "UPDATE profiles SET age = :age, gender = :gender, diet = :diet, units = :units WHERE user_id = :user_id"
+    result = db.session.execute(sql, {"age":age, "gender":gender, "diet":diet, "units":units, "user_id":user_id})
+    db.session.commit()
+    return True

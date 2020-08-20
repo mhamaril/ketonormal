@@ -1,12 +1,13 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username TEXT UNIQUE,
-    password TEXT
+    password TEXT,
+    is_admin BOOLEAN
 );
 create table topics (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users,
-    topic TEXT
+    topic TEXT,
     created_at TIMESTAMP    
 );
 
@@ -38,7 +39,6 @@ CREATE TABLE profiles (
     age INTEGER,
     gender TEXT,
     diet TEXT,
-    units TEXT,
-    tiedostonimi TEXT,
-    kuva BYTEA
+    units TEXT
+    
 );

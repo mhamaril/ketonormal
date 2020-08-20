@@ -4,7 +4,7 @@ import labs, users, messages
 from db import db
 import os
 from flask import send_from_directory
-
+import json, random
 
 @app.route("/")
 def index():
@@ -29,9 +29,13 @@ def login():
 def mypage():  
     user_id = users.user_id()
     lab_names = labs.get_lab_names(user_id)
+    gender = labs.get_gender_from_profile(user_id)
     lista = messages.get_limited_list()
-    table = labs.read_table()
-    return render_template("mypage.html", lab_names = lab_names, messages = lista, table = table)
+    age = labs.get_age_from_profile()
+    diet = labs.get_diet_from_profile()
+    units = labs.get_units_from_profile()
+    #ranges = labs.get_profile_ranges()
+    return render_template("mypage.html", lab_names = lab_names, messages = lista, age = age, user_id = user_id, gender = gender, diet = diet, units = units) #, ranges = ranges
  
 @app.route("/results/<int:id>")
 def lab_name(id):
@@ -53,7 +57,7 @@ def remove_lab():
 def topic(id):
     topic_id = messages.get_topic_id(id)
     topic = messages.get_messages(id)
-    lista = messages.get_topics()
+    lista = messages.get_list()
     return render_template("topic.html", topic = topic,  messages = lista, topic_id = topic_id)
 
     
@@ -171,4 +175,33 @@ def logo():
                 
 @app.route("/update_profile")
 def update_profile():
+    
     return render_template("update_profile.html")
+
+@app.route("/update", methods=["post"])
+def update():
+    user_id = users.user_id()
+    age = request.form["age"]
+    gender = request.form["gender"]
+    diet = request.form["diet"]
+    units = request.form["units"]
+    if users.update(age, gender, diet, units, user_id):
+        return redirect("/mypage")
+    else:
+        return render_template("error.html",message="Update was not succesful")
+    
+
+@app.route("/chart", methods=["GET", "POST"])
+def chart():
+    return render_template("chart.html")
+
+@app.route('/temperature', methods=["GET", "POST"])
+def temperature():
+    temperature = []
+    #for i in range(1,10):
+     #   temperature.append(random.randint(0,100))
+    temperature = labs.read_table()
+    data = {
+        "temperature":temperature
+    }
+    return data
