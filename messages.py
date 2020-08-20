@@ -6,6 +6,14 @@ def get_list():
     result = db.session.execute(sql)
     return result.fetchall()
 
+def get_my_posts(user_id):
+    user_id = users.user_id()
+    if user_id == 0:
+        return False
+    sql = "SELECT T.topic, U.username, M.content, M.sent_at, T.id FROM messages M, users U, topics T WHERE M.user_id=U.id AND T.id = M.topic_id ORDER BY M.id DESC"
+    result = db.session.execute(sql, {"user_id":user_id})
+    return result.fetchall()
+
 #Mypagen rajattu lista keskusteluista, TOIMII
 def get_limited_list():
     sql = "SELECT T.topic, U.username, M.content, M.sent_at, T.id FROM messages M, users U, topics T WHERE M.user_id=U.id AND T.id = M.topic_id ORDER BY M.id DESC LIMIT 3"
