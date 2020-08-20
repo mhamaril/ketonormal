@@ -22,14 +22,15 @@
             <h4>Latest Messages:</h4>
             {% for message in messages %}
 			<h5><a href="/topic/{{ message[0] }}">{{ message[1] }}</a></h5>
-			{{ message[2] }}<br>
+			{{ message[3] }}<br>
+			{{ message[4].strftime("%Y-%m-%d %H:%M:%S") }} From {{ message[2] }}<br>
 			<hr>
 			{% endfor %}
 		
 			<p></p>
 		</div>
 		<aside class="col-md-9 p-3 mb-3 blog-sidebar">
-			<div class="col-md-8 blog-main">
+			<div class="col-md-5 blog-main">
 				<h4 class="pb-3 mb-4 border-bottom">
                     
                     Topic
@@ -41,19 +42,21 @@
 					<p>{{ message[2]}}</p>
 					From {{ message[3] }}<p class="blog-post-meta">{{ message[4].strftime("%Y-%m-%d %H:%M:%S")  }}</p>
 					<hr>
-					{% endfor %} 
 					
-                    <form action="/send_reply" method="POST">
+					{% endfor %} 
+					<form action="/send_reply" method="POST">
                         <textarea placeholder="Reply" name="content" required rows="2" cols="50"></textarea><p></p>
                         <input type="submit" value="Submit"> 
                         <input type="hidden" name="topic_id" value="{{ topic_id }}">
-					</form>
+					</form>	
+                    
 					
 					
 				</div><!-- /.blog-sidebar -->
 			  </div><!-- /.blog-main -->
 			
 		</aside>
+		
 	</div> <!-- /.row -->
 
 </main><!-- /.container -->

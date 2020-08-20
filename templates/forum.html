@@ -11,21 +11,40 @@
 		<a class="nav-link" href="/query">Make Queries<span class="sr-only"></span></a>
 	</li>
 {% endblock %}
-
 {% block content %}
-<h4>Hello, {{ session.username  }}!</h4><br>
-<p></p>
-<a href="/new">Start a new conversation</a>
-<hr>
-Latest discussions: <br>
-<hr>
-{% for message in messages %}
-<h5><a href="/topic/{{ message[0] }}">Topic: {{ message[1] }}</a></h5>
-Latest post: {{ message[3]}}<br>
-From {{ message[2] }}  {{ message[4].strftime("%Y-%m-%d %H:%M:%S")  }}<br>
 
 
-<hr>
-{% endfor %}
 
-{% endblock %}
+
+
+
+<main role="main" class="container">
+	<div class="row">
+		<div class="col-md-3 p-3 mb-3 bg-light rounded">
+		<h3><a href="/new">Start new conversation</a></h3>
+		</div><!-- /.blog-post -->
+  
+	  
+  
+	  <aside class="col-md-9 blog-sidebar">
+		<div class="col-md-8 blog-main">
+			<h3 class="pb-3 mb-4 border-bottom"></h3>
+			Latest discussions: 
+		</h3>
+		{% for message in messages %}
+		<div class="blog-post">
+		  <h2 class="blog-post-title"><a href="/topic/{{ message[0] }}">{{ message[1] }}</a></h2>
+		  <p class="blog-post-meta">{{ message[4].strftime("%Y-%m-%d %H:%M:%S")  }} From {{ message[2] }}</a></p>
+  
+		  <p>Latest post: {{ message[3]}}<br></p>
+		  <hr>
+		  {% endfor %}
+			
+		</div>
+  	  </aside><!-- /.blog-sidebar -->
+  
+	</div><!-- /.row -->
+  
+  </main><!-- /.container -->
+  {% endblock %}
+

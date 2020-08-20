@@ -27,10 +27,10 @@
 			</svg> <br>
 			<h4>{{ session.username  }}</h4>
 			
-			Age:<br>
-			Gender:<br>
-			Diet:<br>
-			Units:<br>
+			Age: {{ age }}<br>
+			Gender: {{ gender }}<br>
+			Diet: {{ diet }}<br>
+			Units: {{ units }} <br>
 			<form action="/update_profile">
 				<input type="submit" value="Update Profile"> <a href="/update_profile"></a>
 				
@@ -39,7 +39,28 @@
 		<aside class="col-md-9 blog-sidebar">
 			<div class="col-md-8 blog-main">
 				<h3 class="pb-3 mb-4">
-				Tähän joku kuva
+					
+					<h3>Reference Ranges According to Your Profile:</h3>
+					
+					{% for result in ranges %}
+					{% if units == 'usa' %}
+					
+					Total Cholesterol: Lower limit ({{ (result[0]*38.67) | round(1, 'common') }}) Average ({{ (result[1]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[2]*38.67)|round(1, 'common') }})<br>
+					LDL Cholesterol: Lower limit ({{ (result[3]*38.67)|round(1, 'common') }}) Average ({{ (result[4]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[5]*38.67)|round(1, 'common') }})<br>
+					HDL Cholesterol: Lower limit ({{ (result[6]*38.67)|round(1, 'common') }}) Average ({{ (result[7]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[8]*38.67)|round(1, 'common') }})<br>
+					Triglycerides: Lower limit ({{ (result[9]*38.67)|round(1, 'common') }}) Average ({{ (result[10]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[11]*38.67)|round(1, 'common') }})<br>
+					<p></p>
+					{% endif %}
+					{% if units == 'int' %}
+					
+					Total Cholesterol: Lower limit ({{ result[0]|round(1, 'common') }}) Average ({{ result[1]|round(1, 'common') }}) Upper limit ({{ result[2]|round(1, 'common') }})<br>
+					LDL Cholesterol: Lower limit ({{ result[3]|round(1, 'common') }}) Average ({{ result[4]|round(1, 'common') }}) Upper limit ({{ result[5]|round(1, 'common') }})<br>
+					HDL Cholesterol: Lower limit ({{ result[6]|round(1, 'common') }}) Average ({{ result[7]|round(1, 'common') }}) Upper limit ({{ result[8]|round(1, 'common') }})<br>
+					Triglycerides: Lower limit ({{ result[9]|round(1, 'common') }}) Average ({{ result[10]|round(1, 'common') }}) Upper limit ({{ result[11]|round(1, 'common') }})<br>
+					<p></p>
+					{% endif %}
+					{% endfor %}
+			
 				</h3>
 		</aside>
 	</div>
@@ -52,10 +73,12 @@
 	<div class="row">
 		<div class="col-md-3 p-3 mb-3 bg-light rounded">
 			<h4>Here are your labs:</h4>
+
 			{% for labname in lab_names %}
 			<a href="/results/{{ labname[0] }}">{{ labname[1] }} </a> <br>
 			<p></p>
 			{% endfor %}
+			<a href="/submitlabs">Submit new lab</a>
 			<p></p>
 		</div>
 		<aside class="col-md-9 blog-sidebar">
@@ -67,7 +90,7 @@
 					{% for message in messages %}
 					<h4 class="blog-post-title">{{ message[0] }}</h4>
 					<p>{{ message[2]}} </p>
-					<p><a class="blog-post-meta">{{ message[3].strftime("%Y-%m-%d %H:%M:%S")  }} from {{ message[1] }} </p>
+					<p><a class="blog-post-meta">{{ message[3].strftime("%Y-%m-%d %H:%M:%S")  }} From {{ message[1] }} </p>
 					<a href="/topic/{{ message[4] }}">Reply</a>
 					<hr>
 					{% endfor %} 
@@ -80,3 +103,4 @@
 
 </main><!-- /.container -->
 {% endblock %}
+

@@ -12,17 +12,24 @@
 	</li>
 {% endblock %}
 {% block content %}
-<h4>Select your variables</h4>
-<p></p>
+<div class="py-5 text-center">
+    
+    <h3>Select your variables</h2>
+    
+  </div>
+  <div class="card"">  
+    <div class="card-body">
+<div class="col-md-3 order-md-1">
 <form action="/query_result" method="POST">
-    <p> 
+    <div class="col-md-6 mb-3">
     Choose gender:
     <select required name="sex">
         <option value="">Choose Gender</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
     </select>
-    <p>
+</div>
+    <div class="col-md-6 mb-3">
     Choose age:
     <select name="age">
         <option value="all_ages">All</option>
@@ -30,7 +37,8 @@
         <option value="40to59">40-59</option>
         <option value="over60">Over 60</option>
     </select>
-    <p>
+</div>
+    <div class="col-md-6 mb-3">
     Choose diet:
     <select required name="diet">
         <option value="">Select Diet</option>
@@ -38,7 +46,8 @@
         <option value="keto">Keto (less than 50g carbs)</option>
         <option value="zero">Carnivore (aka zero carbs)</option>
     </select>
-    <p></p>
+</div>
+    <div class="col-md-6 mb-3">
     Hours fasted:
     <select name="hours_fasted">
         <option value="all_hours">All</option>
@@ -46,7 +55,8 @@
         <option value="between">12-14 Hours</option>
         <option value="over">Over 14 Hours</option>
     </select>
-    <p></p>
+</div>
+    <div class="col-md-6 mb-3">
     Choose CRP:
     <select name="crp">
         <option value="all_crp">All</option>
@@ -54,16 +64,22 @@
         <option value="normal">Between 1-3</option>
         <option value="higher">Over 3</option>
     </select>
-    <p> </p>
+</div>
+    <div class="col-md-6 mb-3">
      Units of measurement:
     <select required name="units">
         <option value="">Select Units</option>    
         <option value="usa">mg/dL (Common for USA)</option>
         <option value="int">mmol/L (Common for International)</option>
     </select>
-    <p></p>
+</div>
+<div class="col-md-12 mb-3">
     By clicking "Submit" you acknowledge this in no way constitutes medical advice.<br>
-    <p></p>
+</div>
+    <div class="col-md-6 mb-3">
     <input type="submit" value="Submit"> | <a href="/mypage">Back</a>  
+    </div>
 </form>
+</div>
+</div>
 {% endblock %}

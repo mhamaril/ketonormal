@@ -14,22 +14,68 @@
 
 {% block content %}
 {% for result in lab_name %}
-<h3>{{ result[1] }}</h3>
-Sex: {{ result[2] }}<br>
-Age: {{ result[3] }}<br>
-Diet: {{ result[4] }}<br>
-Hours Fasted: {{ result[5] }}<br>
-Units: {{ result[6] }}<br>
-Total Cholesterol: {{ result[7] }}<br>
-LDL Cholesterol: {{ result[8] }}<br>
-HDL Cholesterol: {{ result[9] }}<br>
-Triglycerides: {{ result[10] }}<br>
-CRP: {{ result[11] }}<br>
+<div class="container">
+	<div class="col-4">
+	
+	
+
+
+<table class="table table-bordered table-hover">
+	<thead>
+	  <tr>
+		<th scope="col">{{ result[1] }}</th>
+		</tr>
+	</thead>
+	<tbody>
+	  <tr>
+		<th scope="row">Gender:</th>
+		<td>{{ result[2] }}</td>
+		</tr>
+	  <tr>
+		<th scope="row">Age:</th>
+		<td>{{ result[3] }}</td>
+		</tr>
+	  <tr>
+		<th scope="row">Diet:</th>
+		<td>{{ result[4] }}</td>
+	  </tr>
+	  <tr>
+		<th scope="row">Hours Fasted:</th>
+		<td>{{ result[5] }}</td>
+	  </tr>
+	  <tr>
+		<th scope="row">Units:</th>
+		<td>{{ result[6] }}</td>
+	  </tr>
+	  <tr>
+		<th scope="row">Total Cholesterol:</th>
+		<td>{{ result[7] }}</td>
+	  </tr>
+	  <tr>
+		<th scope="row">LDL:</th>
+		<td>{{ result[8] }}</td>
+	  </tr>
+	  <tr>
+		<th scope="row">HDL:</th>
+		<td>{{ result[9] }}</td>
+	  </tr>
+	  <tr>
+		<th scope="row">Triglycerides:</th>
+		<td>{{ result[10] }}</td>
+	  </tr>
+	  <tr>
+		<th scope="row">CRP:</th>
+		<td>{{ result[11] }}</td>
+	  </tr>
+	</tbody>
+  </table>
+
 <form action="/remove_lab" method="POST">
 	
 	<input type="submit" value="Remove"> 
 	<input type="hidden" name="id" value="{{ result[0] }}">
 </form>
-
+</div>
+</div>
 {% endfor %}
 {% endblock %}
