@@ -29,13 +29,13 @@ def login():
 def mypage():  
     user_id = users.user_id()
     lab_names = labs.get_lab_names(user_id)
-    gender = labs.get_gender_from_profile(user_id)
+    gender = labs.get_gender_from_profile()
     lista = messages.get_limited_list()
     age = labs.get_age_from_profile()
     diet = labs.get_diet_from_profile()
     units = labs.get_units_from_profile()
-    #ranges = labs.get_profile_ranges()
-    return render_template("mypage.html", lab_names = lab_names, messages = lista, age = age, user_id = user_id, gender = gender, diet = diet, units = units) #, ranges = ranges
+    ranges = labs.get_profile_ranges()
+    return render_template("mypage.html", lab_names = lab_names, messages = lista, age = age, user_id = user_id, gender = gender, diet = diet, units = units, ranges = ranges)
  
 @app.route("/results/<int:id>")
 def lab_name(id):
@@ -189,7 +189,12 @@ def update():
         return redirect("/mypage")
     else:
         return render_template("error.html",message="Update was not succesful")
-    
+
+@app.route("/edit_posts")
+def edit_posts(user_id):
+    user_id = users.user_id()
+    lista = messages.get_my_posts(user_id)
+    return render_template("edit_posts.html", lista = lista) 
 
 @app.route("/chart", methods=["GET", "POST"])
 def chart():

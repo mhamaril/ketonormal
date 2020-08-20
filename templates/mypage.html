@@ -57,6 +57,11 @@
 					LDL Cholesterol: Lower limit ({{ result[3]|round(1, 'common') }}) Average ({{ result[4]|round(1, 'common') }}) Upper limit ({{ result[5]|round(1, 'common') }})<br>
 					HDL Cholesterol: Lower limit ({{ result[6]|round(1, 'common') }}) Average ({{ result[7]|round(1, 'common') }}) Upper limit ({{ result[8]|round(1, 'common') }})<br>
 					Triglycerides: Lower limit ({{ result[9]|round(1, 'common') }}) Average ({{ result[10]|round(1, 'common') }}) Upper limit ({{ result[11]|round(1, 'common') }})<br>
+					Sample size: {{ result[12] }}<br>
+					<p></p>
+					<h5>
+					
+					If sample size is less than 120 reference ranges are not reliable.</h5>
 					<p></p>
 					{% endif %}
 					{% endfor %}
@@ -78,8 +83,10 @@
 			<a href="/results/{{ labname[0] }}">{{ labname[1] }} </a> <br>
 			<p></p>
 			{% endfor %}
-			<a href="/submitlabs">Submit new lab</a>
+			<input type="submit" value="Submit new lab"> <a href="/submitlabs"></a>
+			
 			<p></p>
+			
 		</div>
 		<aside class="col-md-9 blog-sidebar">
 			<div class="col-md-8 blog-main">

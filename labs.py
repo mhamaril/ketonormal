@@ -66,8 +66,8 @@ def get_query_total(sex, age, diet, hours_fasted, crp, units):
     result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "diet":diet, "minHours":minHours, "maxHours":maxHours, "minCRP":minCRP, "maxCRP":maxCRP, "units":units})
     return result.fetchall()
 
-def get_gender_from_profile(user_id):
-    
+def get_gender_from_profile():
+    user_id = users.user_id()
     sql = "SELECT gender FROM profiles WHERE user_id=:user_id"
     result = db.session.execute(sql, {"user_id":user_id})
     return result.fetchone()[0]
@@ -112,7 +112,7 @@ def get_profile_ranges():
     
     
     
-    sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total), AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl), AVG(hdl)-1.96*STDDEV(hdl), AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl), AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), AVG(triglyt)+1.96*STDDEV(triglyt) FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND diet = :diet AND hours_fasted BETWEEN 11 AND 15 AND crp BETWEEN 0 AND 3"
+    sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total), AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl), AVG(hdl)-1.96*STDDEV(hdl), AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl), AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), AVG(triglyt)+1.96*STDDEV(triglyt), COUNT(*) FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND diet = :diet AND hours_fasted BETWEEN 11 AND 15 AND crp BETWEEN 0 AND 3"
     result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "diet":diet, "units":units})
     return result.fetchall()
 
