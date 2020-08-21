@@ -20,12 +20,7 @@ def get_values(id):
     return result.fetchall()
 
 def get_query_total(sex, age, diet, hours_fasted, crp, units):
-    minAge = 0
-    maxAge = 0
-    minHours = 0
-    maxHours = 0
-    minCRP = 0
-    maxCRP = 0
+    
     if age == "under":
         minAge = 10
         maxAge = 39
@@ -62,8 +57,27 @@ def get_query_total(sex, age, diet, hours_fasted, crp, units):
     if crp == "all_crp":
         minCRP = 0
         maxCRP = 999
-    sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total), AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl), AVG(hdl)-1.96*STDDEV(hdl), AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl), AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), AVG(triglyt)+1.96*STDDEV(triglyt) FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND diet = :diet AND hours_fasted BETWEEN :minHours AND :maxHours AND crp BETWEEN :minCRP AND :maxCRP"
-    result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "diet":diet, "minHours":minHours, "maxHours":maxHours, "minCRP":minCRP, "maxCRP":maxCRP, "units":units})
+    minDiet = 0
+    maxDiet = 0
+    if diet == 'all':
+        minDiet = 0
+        maxDiet = 6
+    if diet == 'ketozero':
+        minDiet = 0
+        maxDiet = 4
+    if diet == 'LCHF':
+        minDiet = 4
+        maxDiet = 6
+    if diet == 'keto':
+        minDiet = 2
+        maxDiet = 4
+    if diet == 'zero':
+        minDiet = 0
+        maxDiet = 2
+    
+    
+    sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total), AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl), AVG(hdl)-1.96*STDDEV(hdl), AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl), AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), AVG(triglyt)+1.96*STDDEV(triglyt), COUNT(*) FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND diet BETWEEN :minDiet AND :maxDiet AND hours_fasted BETWEEN :minHours AND :maxHours AND crp BETWEEN :minCRP AND :maxCRP"
+    result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "minDiet":minDiet,"maxDiet":maxDiet, "minHours":minHours, "maxHours":maxHours, "minCRP":minCRP, "maxCRP":maxCRP, "units":units})
     return result.fetchall()
 
 def get_gender_from_profile():
@@ -95,8 +109,9 @@ def get_profile_ranges():
     sex = get_gender_from_profile()
     age = get_age_from_profile()
     diet = get_diet_from_profile()
+    minDiet = 0
+    maxDiet = 0
     units = get_units_from_profile()
-     
     minAge = 0
     maxAge = 0
     
@@ -109,9 +124,7 @@ def get_profile_ranges():
     if age >= 60:
         minAge = 60
         maxAge = 130
-    
-    
-    
+     
     sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total), AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl), AVG(hdl)-1.96*STDDEV(hdl), AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl), AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), AVG(triglyt)+1.96*STDDEV(triglyt), COUNT(*) FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND diet = :diet AND hours_fasted BETWEEN 11 AND 15 AND crp BETWEEN 0 AND 3"
     result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "diet":diet, "units":units})
     return result.fetchall()
@@ -141,17 +154,3 @@ def remove_lab(id):
     db.session.execute(sql, {"id":id})
     db.session.commit()
     return True
-
-#Mahdollista myöhempää käyttöä varten jos haluan liittää kuvaajia
-def read_table():
-    sql = "select total from labvalues"
-    db.session.execute(sql)
-    return json.dumps([dict(r) for r in sql])
-    """ osoite = getenv("DATABASE_URL")
-    data = pd.read_sql_query('SELECT id, total FROM labvalues' , osoite)  
-    result = data.to_json(orient="values")
-    parsed = json.loads(result)
-    return json.dumps(parsed, indent=4)  
-     """
-
-#SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total), AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl), AVG(hdl)-1.96*STDDEV(hdl), AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl), AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), AVG(triglyt)+1.96*STDDEV(triglyt) FROM labvalues WHERE sex = 'Male' AND age BETWEEN 10 AND 100 AND diet IN ('keto', 'zero', 'LCHF') AND hours_fasted BETWEEN 12 AND 14 AND crp BETWEEN 0.1 AND 3;

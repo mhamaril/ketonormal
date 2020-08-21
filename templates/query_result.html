@@ -73,7 +73,6 @@ Total Cholesterol: Lower limit ({{ (result[0]*38.67) | round(1, 'common') }}) Av
 LDL Cholesterol: Lower limit ({{ (result[3]*38.67)|round(1, 'common') }}) Average ({{ (result[4]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[5]*38.67)|round(1, 'common') }})<br>
 HDL Cholesterol: Lower limit ({{ (result[6]*38.67)|round(1, 'common') }}) Average ({{ (result[7]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[8]*38.67)|round(1, 'common') }})<br>
 Triglycerides: Lower limit ({{ (result[9]*38.67)|round(1, 'common') }}) Average ({{ (result[10]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[11]*38.67)|round(1, 'common') }})<br>
-<p></p>
 {% endif %}
 {% if units == 'int' %}
 <h3>Referenge Ranges:</h3>
@@ -81,8 +80,10 @@ Total Cholesterol: Lower limit ({{ result[0]|round(1, 'common') }}) Average ({{ 
 LDL Cholesterol: Lower limit ({{ result[3]|round(1, 'common') }}) Average ({{ result[4]|round(1, 'common') }}) Upper limit ({{ result[5]|round(1, 'common') }})<br>
 HDL Cholesterol: Lower limit ({{ result[6]|round(1, 'common') }}) Average ({{ result[7]|round(1, 'common') }}) Upper limit ({{ result[8]|round(1, 'common') }})<br>
 Triglycerides: Lower limit ({{ result[9]|round(1, 'common') }}) Average ({{ result[10]|round(1, 'common') }}) Upper limit ({{ result[11]|round(1, 'common') }})<br>
-<p></p>
+
 {% endif %}
+Sample size: {{ result[12] }}<br>
+<h5>If sample size is less than 120 reference ranges are not reliable.</h5>
 {% endfor %}
 {% endblock %}
 

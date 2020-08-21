@@ -29,7 +29,15 @@
 			
 			Age: {{ age }}<br>
 			Gender: {{ gender }}<br>
-			Diet: {{ diet }}<br>
+			{% if diet == 1 %}
+			Diet: Carnivore<br>
+			{% endif %}
+			{% if diet == 3 %}
+			Diet: Keto<br>
+			{% endif %}
+			{% if diet == 5 %}
+			Diet: LCHF<br>
+			{% endif %}
 			Units: {{ units }} <br>
 			<form action="/update_profile">
 				<input type="submit" value="Update Profile"> <a href="/update_profile"></a>
@@ -83,9 +91,10 @@
 			<a href="/results/{{ labname[0] }}">{{ labname[1] }} </a> <br>
 			<p></p>
 			{% endfor %}
-			<input type="submit" value="Submit new lab"> <a href="/submitlabs"></a>
+			<form action="/submitlabs">
+				<input type="submit" value="Submit new lab"> <a href="/submitlabs"></a>
+			</form>
 			
-			<p></p>
 			
 		</div>
 		<aside class="col-md-9 blog-sidebar">

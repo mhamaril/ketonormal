@@ -24,7 +24,7 @@ CREATE TABLE labvalues (
     user_id INTEGER REFERENCES users,
     sex TEXT,
     age INTEGER,
-    diet TEXT,
+    diet INTEGER,
     hours_fasted INTEGER,
     units TEXT,
     total REAL,
