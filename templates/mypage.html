@@ -52,21 +52,90 @@
 					
 					{% for result in ranges %}
 					{% if units == 'usa' %}
+					<table class="table table-striped table-hover">
+						<thead>
+						  <tr>
+							<th scope="col"></th>
+							<th scope="col">Lower limit</th>
+							<th scope="col">Average</th>
+							<th scope="col">Upper limit</th>
+						  </tr>
+						</thead>
+						<tbody>
+							<tr>
+							  <th scope="row">Total Cholesterol</th>
+							  <td>{{ (result[0]*38.67) | round(1, 'common') }}</td>
+							  <td>{{ (result[1]*38.67) | round(1, 'common') }}</td>
+							  <td>{{ (result[2]*38.67) | round(1, 'common') }}</td>
+							</tr>
+							<tr>
+							  <th scope="row">LDL Cholesterol</th>
+							  <td>{{ (result[3]*38.67) | round(1, 'common') }}</td>
+							  <td>{{ (result[4]*38.67) | round(1, 'common') }}</td>
+							  <td>{{ (result[5]*38.67) | round(1, 'common') }}</td>
+							</tr>
+							<tr>
+							  <th scope="row">HDL Cholesterol</th>
+							  <td>{{ (result[6]*38.67) | round(1, 'common') }}</td>
+							  <td>{{ (result[7]*38.67) | round(1, 'common') }}</td>
+							  <td>{{ (result[8]*38.67) | round(1, 'common') }}</td>
+							</tr>
+							<tr>
+								<th scope="row">Triglycerides</th>
+								<td>{{ (result[9]*38.67) | round(1, 'common') }}</td>
+								<td>{{ (result[10]*38.67) | round(1, 'common') }}</td>
+								<td>{{ (result[11]*38.67) | round(1, 'common') }}</td>
+							</tr>
+							<tr>
+								<th scope="row">Sample Size</th>
+								<td colspan="4">{{ result[12] }}</td>
+							</tr>
+						  </tbody>
+						</table>
 					
-					Total Cholesterol: Lower limit ({{ (result[0]*38.67) | round(1, 'common') }}) Average ({{ (result[1]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[2]*38.67)|round(1, 'common') }})<br>
-					LDL Cholesterol: Lower limit ({{ (result[3]*38.67)|round(1, 'common') }}) Average ({{ (result[4]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[5]*38.67)|round(1, 'common') }})<br>
-					HDL Cholesterol: Lower limit ({{ (result[6]*38.67)|round(1, 'common') }}) Average ({{ (result[7]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[8]*38.67)|round(1, 'common') }})<br>
-					Triglycerides: Lower limit ({{ (result[9]*38.67)|round(1, 'common') }}) Average ({{ (result[10]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[11]*38.67)|round(1, 'common') }})<br>
-					<p></p>
+					<h5>If sample size is less than 120 reference ranges are not reliable.</h5>
 					{% endif %}
 					{% if units == 'int' %}
-					
-					Total Cholesterol: Lower limit ({{ result[0]|round(1, 'common') }}) Average ({{ result[1]|round(1, 'common') }}) Upper limit ({{ result[2]|round(1, 'common') }})<br>
-					LDL Cholesterol: Lower limit ({{ result[3]|round(1, 'common') }}) Average ({{ result[4]|round(1, 'common') }}) Upper limit ({{ result[5]|round(1, 'common') }})<br>
-					HDL Cholesterol: Lower limit ({{ result[6]|round(1, 'common') }}) Average ({{ result[7]|round(1, 'common') }}) Upper limit ({{ result[8]|round(1, 'common') }})<br>
-					Triglycerides: Lower limit ({{ result[9]|round(1, 'common') }}) Average ({{ result[10]|round(1, 'common') }}) Upper limit ({{ result[11]|round(1, 'common') }})<br>
-					Sample size: {{ result[12] }}<br>
-					<p></p>
+					<table class="table table-striped table-hover">
+						<thead>
+						  <tr>
+							<th scope="col"></th>
+							<th scope="col">Lower limit</th>
+							<th scope="col">Average</th>
+							<th scope="col">Upper limit</th>
+						  </tr>
+						</thead>
+						<tbody>
+							<tr>
+							  <th scope="row">Total Cholesterol</th>
+							  <td>{{ (result[0]) | round(1, 'common') }}</td>
+							  <td>{{ (result[1]) | round(1, 'common') }}</td>
+							  <td>{{ (result[2]) | round(1, 'common') }}</td>
+							</tr>
+							<tr>
+							  <th scope="row">LDL Cholesterol</th>
+							  <td>{{ (result[3]) | round(1, 'common') }}</td>
+							  <td>{{ (result[4]) | round(1, 'common') }}</td>
+							  <td>{{ (result[5]) | round(1, 'common') }}</td>
+							</tr>
+							<tr>
+							  <th scope="row">HDL Cholesterol</th>
+							  <td>{{ (result[6]) | round(1, 'common') }}</td>
+							  <td>{{ (result[7]) | round(1, 'common') }}</td>
+							  <td>{{ (result[8]) | round(1, 'common') }}</td>
+							</tr>
+							<tr>
+								<th scope="row">Triglycerides</th>
+								<td>{{ (result[9]) | round(1, 'common') }}</td>
+								<td>{{ (result[10]) | round(1, 'common') }}</td>
+								<td>{{ (result[11]) | round(1, 'common') }}</td>
+							</tr>
+							<tr>
+								<th scope="row">Sample Size</th>
+								<td colspan="4">{{ result[12] }}</td>
+							</tr>
+						  </tbody>
+						</table>
 					<h5>
 					
 					If sample size is less than 120 reference ranges are not reliable.</h5>
