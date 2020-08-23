@@ -64,6 +64,7 @@
 					<textarea placeholder="Reply" name="content" required rows="4" cols="27"></textarea><p></p>
 					<input type="submit" value="Submit"> 
 					<input type="hidden" name="topic_id" value="{{ topic_id }}">
+					<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 				</form>	
 			</div>
 		</aside>

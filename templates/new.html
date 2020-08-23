@@ -26,6 +26,7 @@
     <textarea name="content" required rows="4" cols="50"></textarea>
     </p>
     <input type="submit" value="Submit"> <a href="/mypage">Back</a>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <p>
 </form>
 {% endblock %}

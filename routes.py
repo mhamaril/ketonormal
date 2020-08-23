@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, flash
 import labs, users, messages
 from db import db
 import os
+from flask import session
 from flask import send_from_directory
 import json, random
 
@@ -66,6 +67,8 @@ def topic(id):
 def send_reply():
     topic_id = request.form["topic_id"]
     content = request.form["content"]
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     if messages.send_reply(topic_id, content):
         return redirect("/topic/"+str(topic_id))
     else:
@@ -110,7 +113,8 @@ def submit():
 
 @app.route("/result", methods=["POST"])
 def send_values():
-    
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     sex = request.form["sex"]
     lab_name = request.form["lab_name"]
     user_id = users.user_id()
@@ -151,6 +155,8 @@ def new():
 
 @app.route("/send", methods=["post"])
 def send():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     topic = request.form["topic"]
     content = request.form["content"]
     if messages.send(topic, content):
@@ -180,6 +186,8 @@ def update_profile():
 
 @app.route("/update", methods=["post"])
 def update():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     user_id = users.user_id()
     age = request.form["age"]
     gender = request.form["gender"]
@@ -196,17 +204,3 @@ def edit_posts(user_id):
     lista = messages.get_my_posts(user_id)
     return render_template("edit_posts.html", lista = lista) 
 
-@app.route("/chart", methods=["GET", "POST"])
-def chart():
-    return render_template("chart.html")
-
-@app.route('/temperature', methods=["GET", "POST"])
-def temperature():
-    temperature = []
-    #for i in range(1,10):
-     #   temperature.append(random.randint(0,100))
-    temperature = labs.read_table()
-    data = {
-        "temperature":temperature
-    }
-    return data
