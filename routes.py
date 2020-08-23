@@ -199,8 +199,20 @@ def update():
         return render_template("error.html",message="Update was not succesful")
 
 @app.route("/edit_posts")
-def edit_posts(user_id):
+def edit_posts():
     user_id = users.user_id()
     lista = messages.get_my_posts(user_id)
+    
     return render_template("edit_posts.html", lista = lista) 
 
+@app.route("/delete_post", methods=["post"])
+def delete_post():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    user_id = users.user_id()
+    id = request.form["id"]
+    if messages.delete_post(id):
+        return redirect("/forum")
+    else:
+        return render_template("error.html",message="Something went wrong!")
+    
