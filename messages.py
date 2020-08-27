@@ -16,14 +16,12 @@ def get_my_posts(user_id):
     result = db.session.execute(sql, {"user_id":user_id})
     return result.fetchall()
 
-#Mypagen rajattu lista keskusteluista, TOIMII
 def get_limited_list():
     sql = "SELECT T.topic, U.username, M.content, M.sent_at, T.id FROM messages M, users U, topics T \
         WHERE M.user_id=U.id AND T.id = M.topic_id ORDER BY M.id DESC LIMIT 3"
     result = db.session.execute(sql)
     return result.fetchall()
 
- #Aloittaa uuden keskusteluketjun sivulla /new.html
 def send(topic, content):
     user_id = users.user_id()
     if user_id == 0:
@@ -45,14 +43,12 @@ def send_reply(topic_id, content):
     db.session.commit()
     return True
 
-#tämä toimii, tällä saa kaikki viestit haettua aiheella
 def get_messages(id):
     sql = "SELECT T.id, T.topic, M.content, U.username, M.sent_at FROM messages M, users U, topics T \
         WHERE M.user_id = U.id AND  T.id = M.topic_id AND T.id = :id ORDER BY M.sent_at DESC"
     result = db.session.execute(sql, {"id":id})
     return result.fetchall()
 
-#hakee otsikon id:n
 def get_topic_id(id):
     sql = "SELECT T.id FROM topics T WHERE T.id = :id"
     result = db.session.execute(sql, {"id":id})
