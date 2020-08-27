@@ -6,9 +6,9 @@ su 23.8.2020 Välipalautus 3
 
 Sovellusta voi kokeilla käyttäjällä matti, salasanalla matti tai voi luoda uuden käyttäjän. Mypage sivulla näkyy oma profiili, jonka mukaan mypage sivulla näytetään myös raja-arvot labroille. Mypage sivulla näkee myös kyseisen käyttäjän lisäämät labratulokset sekä 3 viimeisintä viestiä, mitkä on lähetetty keskustelupalstalle. Klikkaamalla lisättyä labran nimeä sovellus näyttää arvot ja sen voi halutessaan poistaa. Klikkaamalla keskustelusta Replyä niin se vie sivulle, jossa näkyy kyseinen keskustelu. Siellä voi lähettää viestin kyseiseen keskusteluun. Forum sivulla näkyy kaikki keskustelut viimeisimmästä viestistä alkaen. Klikkaamalla otsikkoa pääsee lukemaan kyseisen ketjun viestejä sekä vastaamaan siihen. Submit Labs toimii niin kuin pitää ja se ilmoittaa jos joku tieto puuttuu. Make Queries toimii myös ja siinä voi lähes kaikilla mahdollisilla vaihtoehdoilla tutkia eri raja-arvoja.
 
-Sovelluksesta puuttuu vielä toiminnallisuus joka antaa muokata omia viestejä sekä admin käyttäjälle oikeus poistaa viestejä sekä viestiketjuja. Login sivun keskiarvot eivät näy kuin kirjautuneille käyttäjille. Tämä meni mielestäni "rikki" kun tein layout.html ja Bootstrapin avulla tyylitellyt sivut. Kuvaajia en saanut piirrettyä, kun en keksinyt miten saisin tietokannasta haetun tiedon oikeanlaiseen json muotoon. 
+Sovelluksesta puuttuu vielä toiminnallisuus, jossa admin käyttäjällä on oikeus poistaa kaikkien viestejä sekä viestiketjuja. Login sivun keskiarvot eivät näy kuin kirjautuneille käyttäjille. Tämä meni mielestäni "rikki" kun tein layout.html ja Bootstrapin avulla tyylitellyt sivut. Kuvaajia en saanut piirrettyä, kun en keksinyt miten saisin tietokannasta haetun tiedon oikeanlaiseen json muotoon. 
 
-Mielestäni sovellus toimii niinkuin pitää ja tekee kaikki haluamani asiat paitsi tuon viestien poiston. Mainitsemani muut puutteet eivät ominaisuuksiin vaikuta, mutta olivat sellaisia mitä alunperin tähän sovellukseen suunnittelin. Ulkoasua voi vielä hioa jonkin verran.
+Mielestäni sovellus toimii niinkuin pitää ja tekee kaikki haluamani asiat. Mainitsemani muut puutteet eivät ominaisuuksiin vaikuta, mutta olivat sellaisia mitä alunperin tähän sovellukseen suunnittelin. Ulkoasua voi vielä hioa jonkin verran.
 
 
 
