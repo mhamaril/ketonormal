@@ -132,13 +132,9 @@ def send_values():
     if request.form["units"]=="usa":
         units = "usa"
         total = request.form["total"]
-        #total = float(total)*38.67
         ldl = request.form["ldl"]
-        #ldl = float(ldl)*38.67
         hdl = request.form["hdl"]
-        #hdl = float(hdl)*38.67
         triglyt = request.form["triglyt"]
-        #triglyt = float(triglyt)*38.67
     else:
         units = "int"
         total = request.form["total"]
