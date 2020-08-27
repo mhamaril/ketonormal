@@ -19,7 +19,7 @@ body {
 {% with flash_messages = get_flashed_messages() %}
   {% if flash_messages %}
 <div>  
-    <div class="alert alert-warning alert-dismissible" role="alert">
+    <div class="alert alert-success" role="alert">
     {% for flash_message in flash_messages %}
     <li>{{ flash_message }}</li>
     {% endfor %}
@@ -34,9 +34,19 @@ body {
 		    
         
           <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/mypage">My Page</a>
+            </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/submitlabs">Submit Labs</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/query">Make Queries<span class="sr-only"></span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/forum">Forum<span class="sr-only"></span></a>
+              </li>
             
-            {% block navbar %}
-            {% endblock %}
             <li class="nav-item active">
               <a class="nav-link" href="/logout">Logout</a>
             </li>

@@ -1,16 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}Results{% endblock %}
-{% block navbar %}
-	<li class="nav-item active">
-		<a class="nav-link" href="/mypage">My Page</a>
-	</li>
-	<li class="nav-item active">
-		<a class="nav-link" href="/query">Make Queries<span class="sr-only"></span></a>
-	</li>
-	<li class="nav-item active">
-		<a class="nav-link" href="/forum">Forum<span class="sr-only"></span></a>
-	</li>
-{% endblock %}
+
 
 {% block content %}
 {% for result in lab_name %}
@@ -72,8 +62,9 @@
 
 <form action="/remove_lab" method="POST">
 	
-	<input type="submit" value="Remove"> 
+	<input type="submit" value="Remove"> <a href="/mypage">Back</a> 
 	<input type="hidden" name="id" value="{{ result[0] }}">
+	<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 </div>
 </div>

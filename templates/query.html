@@ -1,23 +1,13 @@
 {% extends "layout.html" %}
 {% block title %}Query{% endblock %}
-{% block navbar %}
-	<li class="nav-item active">
-		<a class="nav-link" href="/mypage">My Page</a>
-	</li>
-	<li class="nav-item active">
-		<a class="nav-link" href="/submitlabs">Submit Labs<span class="sr-only"></span></a>
-	</li>
-	<li class="nav-item active">
-		<a class="nav-link" href="/forum">Forum<span class="sr-only"></span></a>
-	</li>
-{% endblock %}
+
 {% block content %}
 <div class="py-5 text-center">
     
     <h3>Select your variables</h2>
     
   </div>
-  <div class="card"">  
+  <div class="card">  
     <div class="card-body">
 <div class="col-md-3 order-md-1">
 <form action="/query_result" method="POST">
@@ -78,7 +68,9 @@
     By clicking "Submit" you acknowledge this in no way constitutes medical advice.<br>
 </div>
     <div class="col-md-6 mb-3">
-    <input type="submit" value="Submit"> | <a href="/mypage">Back</a>  
+    <input type="submit" value="Submit"> | <a href="/mypage">Back</a> 
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
     </div>
 </form>
 </div>

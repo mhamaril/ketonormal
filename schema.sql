@@ -4,7 +4,7 @@ CREATE TABLE users (
     password TEXT,
     is_admin BOOLEAN
 );
-create table topics (
+CREATE TABLE topics (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users,
     topic TEXT,
@@ -40,5 +40,4 @@ CREATE TABLE profiles (
     gender TEXT,
     diet TEXT,
     units TEXT
-    
 );

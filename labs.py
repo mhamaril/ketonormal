@@ -15,7 +15,8 @@ def get_lab_names(user_id):
     return result.fetchall()
 
 def get_values(id):
-    sql = "SELECT L.id, L.lab_name, L.sex, L.age, L.diet, L.hours_fasted, L.units, L.total, L.ldl, L.hdl, L.triglyt, L.crp FROM labvalues L, users U WHERE L.user_id=U.id AND L.id = :id"
+    sql = "SELECT L.id, L.lab_name, L.sex, L.age, L.diet, L.hours_fasted, L.units, L.total, L.ldl, L.hdl, L.triglyt, L.crp \
+        FROM labvalues L, users U WHERE L.user_id=U.id AND L.id = :id"
     result = db.session.execute(sql, {"id":id})
     return result.fetchall()
 
@@ -74,10 +75,15 @@ def get_query_total(sex, age, diet, hours_fasted, crp, units):
     if diet == 'zero':
         minDiet = 0
         maxDiet = 2
-    
-    
-    sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total), AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl), AVG(hdl)-1.96*STDDEV(hdl), AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl), AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), AVG(triglyt)+1.96*STDDEV(triglyt), COUNT(*) FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND diet BETWEEN :minDiet AND :maxDiet AND hours_fasted BETWEEN :minHours AND :maxHours AND crp BETWEEN :minCRP AND :maxCRP"
-    result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "minDiet":minDiet,"maxDiet":maxDiet, "minHours":minHours, "maxHours":maxHours, "minCRP":minCRP, "maxCRP":maxCRP, "units":units})
+        
+    sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total),\
+        AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl),\
+        AVG(hdl)-1.96*STDDEV(hdl), AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl),\
+        AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), AVG(triglyt)+1.96*STDDEV(triglyt), COUNT(*)\
+        FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge \
+        AND diet BETWEEN :minDiet AND :maxDiet AND hours_fasted BETWEEN :minHours AND :maxHours AND crp BETWEEN :minCRP AND :maxCRP"
+    result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "minDiet":minDiet,"maxDiet":maxDiet,\
+        "minHours":minHours, "maxHours":maxHours, "minCRP":minCRP, "maxCRP":maxCRP, "units":units})
     return result.fetchall()
 
 def get_gender_from_profile():
@@ -125,7 +131,11 @@ def get_profile_ranges():
         minAge = 60
         maxAge = 130
      
-    sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total), AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl), AVG(hdl)-1.96*STDDEV(hdl), AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl), AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), AVG(triglyt)+1.96*STDDEV(triglyt), COUNT(*) FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND diet = :diet AND hours_fasted BETWEEN 11 AND 15 AND crp BETWEEN 0 AND 3"
+    sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total), \
+        AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl), AVG(hdl)-1.96*STDDEV(hdl), \
+        AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl), AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), \
+        AVG(triglyt)+1.96*STDDEV(triglyt), COUNT(*) FROM labvalues WHERE sex = :sex \
+        AND age BETWEEN :minAge AND :maxAge AND diet = :diet AND hours_fasted BETWEEN 11 AND 15 AND crp BETWEEN 0 AND 3"
     result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "diet":diet, "units":units})
     return result.fetchall()
 
@@ -144,12 +154,16 @@ def send_values(lab_name, user_id, sex, age, diet, hours_fasted, units, total, l
         crp = 2
     if crp == "higher":
         crp = 5
-    sql = "INSERT INTO labvalues (lab_name, user_id, sex, age, diet, hours_fasted, units, total, ldl, hdl, triglyt, crp) VALUES (:lab_name, :user_id, :sex, :age, :diet, :hours_fasted, :units, :total, :ldl, :hdl, :triglyt, :crp)"
-    db.session.execute(sql, {"lab_name":lab_name, "user_id":user_id, "sex":sex, "age":age, "diet":diet, "hours_fasted":hours_fasted, "units":units, "total":total, "ldl":ldl, "hdl":hdl, "triglyt":triglyt, "crp":crp})
+    sql = "INSERT INTO labvalues (lab_name, user_id, sex, age, diet, hours_fasted, units, total, ldl, hdl, triglyt, crp)\
+         VALUES (:lab_name, :user_id, :sex, :age, :diet, :hours_fasted, :units, :total, :ldl, :hdl, :triglyt, :crp)"
+    db.session.execute(sql, {"lab_name":lab_name, "user_id":user_id, "sex":sex, "age":age, "diet":diet,\
+         "hours_fasted":hours_fasted, "units":units, "total":total, "ldl":ldl, "hdl":hdl, "triglyt":triglyt, "crp":crp})
     db.session.commit()
     return True
 
 def remove_lab(id):
+    if id == 0:
+        return False
     sql = "DELETE FROM labvalues WHERE id = :id"
     db.session.execute(sql, {"id":id})
     db.session.commit()

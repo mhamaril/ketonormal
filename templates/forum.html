@@ -1,23 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Forum{% endblock %}
-{% block navbar %}
-	<li class="nav-item active">
-		<a class="nav-link" href="/mypage">My Page</a>
-    </li>
-    <li class="nav-item active">
-		<a class="nav-link" href="/submitlabs">Submit Labs<span class="sr-only"></span></a>
-	</li>
-	<li class="nav-item active">
-		<a class="nav-link" href="/query">Make Queries<span class="sr-only"></span></a>
-	</li>
-{% endblock %}
+
 {% block content %}
-
-
-
-
-
-
 <main role="main" class="container">
 	<div class="row">
 		<div class="col-md-3 p-3 mb-3 bg-light rounded">
@@ -30,9 +14,9 @@
   
 	  <aside class="col-md-9 blog-sidebar">
 		<div class="col-md-8 blog-main">
-			<h3 class="pb-3 mb-4"></h3>
-			Latest discussions: 
-		</h3>
+			<h2 class="pb-1 mb-1">
+			Latest discussions: </h2>
+		
 		{% for message in messages %}
 		<div class="blog-post">
 		  <h2 class="blog-post-title"><a href="/topic/{{ message[0] }}">{{ message[1] }}</a></h2>

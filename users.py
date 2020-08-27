@@ -4,7 +4,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import os
 
 def login(username,password):
-    
     sql = "SELECT password, id FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
@@ -40,7 +39,6 @@ def user_id():
     return session.get("user_id",0)
 
 def update(age, gender, diet, units, user_id):
-    
     if user_id == 0:
         return False
     sql = "UPDATE profiles SET age = :age, gender = :gender, diet = :diet, units = :units WHERE user_id = :user_id"

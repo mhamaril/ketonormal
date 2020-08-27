@@ -12,7 +12,7 @@ def index():
     
     return render_template("login.html")
 
-@app.route("/login", methods=["get","post"])
+@app.route("/login", methods=["GET","POST"])
 def login():
     if request.method == "GET":
         averages = labs.get_averages()
@@ -47,6 +47,8 @@ def lab_name(id):
 @app.route("/remove_lab", methods=["POST"])
 def remove_lab():
     id = request.form["id"]
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     
     if labs.remove_lab(id):
         return redirect("/mypage")
@@ -80,6 +82,8 @@ def query():
 
 @app.route("/query_result", methods=["POST"])
 def get_query_total():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     sex = request.form["sex"]
     age = request.form["age"]
     diet = request.form["diet"]
@@ -95,11 +99,13 @@ def logout():
     users.logout()
     return redirect("/")
 
-@app.route("/register", methods=["get","post"])
+@app.route("/register", methods=["GET","POST"])
 def register():
     if request.method == "GET":
         return render_template("register.html")
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         username = request.form["username"]
         password = request.form["password"]
         if users.register(username,password):

@@ -1,16 +1,5 @@
 {% extends "layout.html" %}
 {% block title %}My Page{% endblock %}
-{% block navbar %}
-	<li class="nav-item active">
-		<a class="nav-link" href="/submitlabs">Submit Labs</a>
-	</li>
-	<li class="nav-item active">
-		<a class="nav-link" href="/query">Make Queries<span class="sr-only"></span></a>
-	</li>
-	<li class="nav-item active">
-		<a class="nav-link" href="/forum">Forum<span class="sr-only"></span></a>
-	</li>
-{% endblock %}
 
 {% block content %}
 <form action="/update" method="POST">
@@ -39,9 +28,9 @@
         </select>
         <input type="hidden" name="user_id" value="{{ user_id }}">
         
-        <input type="submit" value="Update Profile">
+        <input type="submit" value="Update Profile"> <a href="/mypage">Back</a>
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
       </div>	
 </form>
-<a href="/mypage">Back</a>
+
 {% endblock %}

@@ -1,30 +1,25 @@
 {% extends "layout.html" %}
 {% block title %}Submit Labs{% endblock %}
-{% block navbar %}
-	<li class="nav-item active">
-		<a class="nav-link" href="/mypage">My Page</a>
-	</li>
-	<li class="nav-item active">
-		<a class="nav-link" href="/query">Make Queries<span class="sr-only"></span></a>
-	</li>
-	<li class="nav-item active">
-		<a class="nav-link" href="/forum">Forum<span class="sr-only"></span></a>
-	</li>
-{% endblock %}
+
 {% block content %}
 <div class="py-5 text-center">
     
     <h3>Submit your lab values</h2>
     
   </div>
+  <div class="card">  
+    <div class="card-body">
   <div class="col-md-3 order-md-1">
 <form action="/result" method="POST">
-    <div class="col-md-6 mb-3"></div>
+    <div class="row">
+       
     Give a name for this lab:<br>
-        
         <input type="text" class="form-control" name="lab_name" required rows="1" cols="50">
+       </div>
    <p></p>
 </div>
+
+<div class="row">
 <div class="col-md-3 mb-3">
     <p>
         <input type="radio" name="sex" required value="Male"> Male
@@ -32,11 +27,20 @@
         <input type="radio" name="sex" required value="Unspecified"> Unspecified
     <p>
     </div>
+</div>
+    <div class="row">
     <div class="col-md-3 mb-3">
         Age:<br>
     
     <input type="number" class="form-control" required name="age">
     </div>
+    <div class="col-md-3 mb-3">
+          
+        Total hours water-only fasted before this test:
+<input type="number" class="form-control" required name="hours_fasted">
+</div>
+</div>
+    <div class="row">
         <div class="col-md-3 mb-3">
            
             Diet:<br>
@@ -47,23 +51,20 @@
         <option class="form-control" value="1">Carnivore (aka zero carbs)</option>
         </select>
     </div>
-    
-        <div class="col-md-3 mb-3">
-          
-            Total hours water-only fasted before this test:
-    <input type="number" class="form-control" name="hours_fasted">
+    <div class="col-md-3 mb-3">
+           
+        Units of measurement:<br>
+    <select required name="units">
+    <option value="">Select Units</option>    
+    <option value="usa">mg/dL (Common for USA)</option>
+    <option value="int">mmol/L (Common for International)</option>
+    </select>
+</div>
 </div>
    
-        <div class="col-md-3 mb-3">
-           
-            Units of measurement:<br>
-        <select required name="units">
-        <option value="">Select Units</option>    
-        <option value="usa">mg/dL (Common for USA)</option>
-        <option value="int">mmol/L (Common for International)</option>
-        </select>
-    </div>
+        
     <p>
+        <div class="row">
         <div class="col-md-3 mb-3">
     Total Cholesterol: 
         <input type="number" class="form-control" step="0.1" required min="0" max="1000" name="total">
@@ -73,7 +74,9 @@
     LDL Cholesterol: 
         <input type="number" class="form-control" step="0.1" required min="0" max="1000" name="ldl">
     </div>
+</div>
     <p>
+        <div class="row">
         <div class="col-md-3 mb-3">
     HDL Cholesterol: 
         <input type="number" class="form-control" step="0.1" required min="0" max="1000" name="hdl"> 
@@ -83,7 +86,9 @@
     Triglycerides: 
         <input type="number" class="form-control" step="0.1" required min="0" max="1000" name="triglyt"> 
     </div>
-     <p>    
+</div>
+     <p>   
+         <div class="row" >
         <div class="col-md-3 mb-3"> 
         How's your health? Give a value or estimate of your CRP:
             <select required name="crp">
@@ -93,12 +98,17 @@
             <option value="higher">Over 3, I have some inflammation</option>
             </select>
         </div>
+    </div>
         <p>
+            <div class="row">
             <div class="col-md-3 mb-3">
-            <input type="submit" value="Submit"> <a href="/mypage">Back</a>
+            <input type="submit" value="Submit"> | <a href="/mypage">Back</a>
             <p>
                 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </div>
+        </div>
     </form>
   </div>
+  </div>
+  
 {% endblock %}

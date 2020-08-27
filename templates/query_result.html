@@ -1,16 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}Query Results{% endblock %}
-{% block navbar %}
-	<li class="nav-item active">
-		<a class="nav-link" href="/mypage">My Page<span class="sr-only"></span></a>
-    </li>
-    <li class="nav-item active">
-		<a class="nav-link" href="/submitlabs">Submit Labs</a>
-	</li>
-	<li class="nav-item active">
-		<a class="nav-link" href="/forum">Forum<span class="sr-only"></span></a>
-	</li>
-{% endblock %}
+
 
 {% block content %}
 <h3>With the chosen paremeters reference ranges are as follows.</h3>
@@ -69,17 +59,17 @@ Units of measurement: {{ units }}
 {% for result in tulos %}
 {% if units == 'usa' %}
 <h3>Referenge Ranges:</h3>
-Total Cholesterol: Lower limit ({{ (result[0]*38.67) | round(1, 'common') }}) Average ({{ (result[1]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[2]*38.67)|round(1, 'common') }})<br>
-LDL Cholesterol: Lower limit ({{ (result[3]*38.67)|round(1, 'common') }}) Average ({{ (result[4]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[5]*38.67)|round(1, 'common') }})<br>
-HDL Cholesterol: Lower limit ({{ (result[6]*38.67)|round(1, 'common') }}) Average ({{ (result[7]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[8]*38.67)|round(1, 'common') }})<br>
-Triglycerides: Lower limit ({{ (result[9]*38.67)|round(1, 'common') }}) Average ({{ (result[10]*38.67)|round(1, 'common') }}) Upper limit ({{ (result[11]*38.67)|round(1, 'common') }})<br>
+Total Cholesterol: Lower limit ({{ (result[0]*38.67) }}) Average ({{ (result[1]*38.67) }}) Upper limit ({{ (result[2]*38.67) }})<br>
+LDL Cholesterol: Lower limit ({{ (result[3]*38.67) }}) Average ({{ (result[4]*38.67) }}) Upper limit ({{ (result[5]*38.67) }})<br>
+HDL Cholesterol: Lower limit ({{ (result[6]*38.67) }}) Average ({{ (result[7]*38.67) }}) Upper limit ({{ (result[8]*38.67) }})<br>
+Triglycerides: Lower limit ({{ (result[9]*38.67) }}) Average ({{ (result[10]*38.67) }}) Upper limit ({{ (result[11]*38.67) }})<br>
 {% endif %}
 {% if units == 'int' %}
 <h3>Referenge Ranges:</h3>
-Total Cholesterol: Lower limit ({{ result[0]|round(1, 'common') }}) Average ({{ result[1]|round(1, 'common') }}) Upper limit ({{ result[2]|round(1, 'common') }})<br>
-LDL Cholesterol: Lower limit ({{ result[3]|round(1, 'common') }}) Average ({{ result[4]|round(1, 'common') }}) Upper limit ({{ result[5]|round(1, 'common') }})<br>
-HDL Cholesterol: Lower limit ({{ result[6]|round(1, 'common') }}) Average ({{ result[7]|round(1, 'common') }}) Upper limit ({{ result[8]|round(1, 'common') }})<br>
-Triglycerides: Lower limit ({{ result[9]|round(1, 'common') }}) Average ({{ result[10]|round(1, 'common') }}) Upper limit ({{ result[11]|round(1, 'common') }})<br>
+Total Cholesterol: Lower limit ({{ result[0] }}) Average ({{ result[1]}}) Upper limit ({{ result[2] }})<br>
+LDL Cholesterol: Lower limit ({{ result[3] }}) Average ({{ result[4] }}) Upper limit ({{ result[5] }})<br>
+HDL Cholesterol: Lower limit ({{ result[6] }}) Average ({{ result[7] }}) Upper limit ({{ result[8] }})<br>
+Triglycerides: Lower limit ({{ result[9] }}) Average ({{ result[10] }}) Upper limit ({{ result[11] }})<br>
 
 {% endif %}
 Sample size: {{ result[12] }}<br>

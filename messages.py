@@ -2,7 +2,8 @@ from db import db
 import users
 
 def get_list():
-    sql = "SELECT T.id, T.topic, U.username, M.content, M.sent_at FROM messages M, users U, topics T WHERE M.user_id=U.id AND T.id = M.topic_id ORDER BY M.id DESC"
+    sql = "SELECT T.id, T.topic, U.username, M.content, M.sent_at FROM messages M, users U, topics T \
+        WHERE M.user_id=U.id AND T.id = M.topic_id ORDER BY M.id DESC"
     result = db.session.execute(sql)
     return result.fetchall()
 
@@ -10,13 +11,15 @@ def get_my_posts(user_id):
     user_id = users.user_id()
     if user_id == 0:
         return False
-    sql = "SELECT T.topic, U.username, M.content, M.sent_at, T.id, M.id FROM messages M, users U, topics T WHERE M.user_id=U.id AND M.user_id = :user_id AND T.id = M.topic_id ORDER BY M.id DESC"
+    sql = "SELECT T.topic, U.username, M.content, M.sent_at, T.id, M.id FROM messages M, users U, topics T \
+        WHERE M.user_id=U.id AND M.user_id = :user_id AND T.id = M.topic_id ORDER BY M.id DESC"
     result = db.session.execute(sql, {"user_id":user_id})
     return result.fetchall()
 
 #Mypagen rajattu lista keskusteluista, TOIMII
 def get_limited_list():
-    sql = "SELECT T.topic, U.username, M.content, M.sent_at, T.id FROM messages M, users U, topics T WHERE M.user_id=U.id AND T.id = M.topic_id ORDER BY M.id DESC LIMIT 3"
+    sql = "SELECT T.topic, U.username, M.content, M.sent_at, T.id FROM messages M, users U, topics T \
+        WHERE M.user_id=U.id AND T.id = M.topic_id ORDER BY M.id DESC LIMIT 3"
     result = db.session.execute(sql)
     return result.fetchall()
 
@@ -44,7 +47,8 @@ def send_reply(topic_id, content):
 
 #tämä toimii, tällä saa kaikki viestit haettua aiheella
 def get_messages(id):
-    sql = "SELECT T.id, T.topic, M.content, U.username, M.sent_at FROM messages M, users U, topics T WHERE M.user_id = U.id AND  T.id = M.topic_id AND T.id = :id ORDER BY M.sent_at DESC"
+    sql = "SELECT T.id, T.topic, M.content, U.username, M.sent_at FROM messages M, users U, topics T \
+        WHERE M.user_id = U.id AND  T.id = M.topic_id AND T.id = :id ORDER BY M.sent_at DESC"
     result = db.session.execute(sql, {"id":id})
     return result.fetchall()
 
@@ -55,11 +59,14 @@ def get_topic_id(id):
     return result.fetchone()[0]
 
 def get_topics():
-    sql = "SELECT T.id, T.topic, FIRST_VALUE(M.content) OVER (PARTITION BY T.topic ORDER BY M.sent_at DESC) AS latest FROM messages M, topics T where T.id = M.topic_id"
+    sql = "SELECT T.id, T.topic, FIRST_VALUE(M.content) OVER (PARTITION BY T.topic ORDER BY M.sent_at DESC) AS latest \
+        FROM messages M, topics T where T.id = M.topic_id"
     result = db.session.execute(sql)
     return result.fetchall()
 
 def delete_post(id):
+    if id == 0:
+        return False
     sql = "DELETE FROM messages WHERE id = :id"
     db.session.execute(sql, {"id":id})
     db.session.commit()
