@@ -13,7 +13,7 @@
             <div class="columns is-left">
                 <div class="column is-full">
                     
-                    <form action="/register" method="post">
+                    <form action="/register" method="post" onsubmit="return check(this)">
                         <div class="field">
                             <label for="username">Username:</label>
                             <div class="control has-icons-left has-icons-right">
@@ -36,5 +36,14 @@
                         <button type="submit" class="btn btn-default">Create account</button> Already have an account? <a href="/login" style="color:#080808;">Login</a>
                         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                     </form>
+                    <script>
+                        function check(form) {
+                            if (form.username.value.length < 5) {
+                                alert("Username is too short");
+                                return false;
+                            }
+                            return true;
+                        }
+                    </script>
             </span>
 </body>

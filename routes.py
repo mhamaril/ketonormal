@@ -107,6 +107,8 @@ def register():
         if session["csrf_token"] != request.form["csrf_token"]:
             abort(403)
         username = request.form["username"]
+        if len(username)<5:
+            return render_template("error.html", error="Username Is Too Short")
         password = request.form["password"]
         if users.register(username,password):
             return redirect("/mypage")
