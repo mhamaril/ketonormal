@@ -174,17 +174,7 @@ def send():
 def forum():
     lista = messages.get_list()
     return render_template("forum.html", messages = lista)
-
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
-                    
-@app.route('/logo.jpg')
-def logo():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'logo.jpg', mimetype='image/jpeg')
-                
+              
 @app.route("/update_profile")
 def update_profile():
     
