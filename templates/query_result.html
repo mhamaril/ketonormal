@@ -3,6 +3,7 @@
 
 
 {% block content %}
+<div class="container-fluid">
 <h3>With the chosen paremeters reference ranges are as follows.</h3>
 {{ sex }}<br>
 {% if age == 'under' %}
@@ -55,25 +56,102 @@
 {% endif %}
 Units of measurement: {{ units }}
 <p>
-<hr>
+
 {% for result in tulos %}
 {% if units == 'usa' %}
 <h3>Referenge Ranges:</h3>
-Total Cholesterol: Lower limit ({{ (result[0]*38.67) }}) Average ({{ (result[1]*38.67) }}) Upper limit ({{ (result[2]*38.67) }})<br>
-LDL Cholesterol: Lower limit ({{ (result[3]*38.67) }}) Average ({{ (result[4]*38.67) }}) Upper limit ({{ (result[5]*38.67) }})<br>
-HDL Cholesterol: Lower limit ({{ (result[6]*38.67) }}) Average ({{ (result[7]*38.67) }}) Upper limit ({{ (result[8]*38.67) }})<br>
-Triglycerides: Lower limit ({{ (result[9]*38.67) }}) Average ({{ (result[10]*38.67) }}) Upper limit ({{ (result[11]*38.67) }})<br>
-{% endif %}
-{% if units == 'int' %}
-<h3>Referenge Ranges:</h3>
-Total Cholesterol: Lower limit ({{ result[0] }}) Average ({{ result[1]}}) Upper limit ({{ result[2] }})<br>
-LDL Cholesterol: Lower limit ({{ result[3] }}) Average ({{ result[4] }}) Upper limit ({{ result[5] }})<br>
-HDL Cholesterol: Lower limit ({{ result[6] }}) Average ({{ result[7] }}) Upper limit ({{ result[8] }})<br>
-Triglycerides: Lower limit ({{ result[9] }}) Average ({{ result[10] }}) Upper limit ({{ result[11] }})<br>
 
-{% endif %}
-Sample size: {{ result[12] }}<br>
-<h5>If sample size is less than 120 reference ranges are not reliable.</h5>
-{% endfor %}
+					
+					<table class="table table-striped table-hover">
+						<thead>
+						  <tr>
+							<th scope="col"></th>
+							<th scope="col">Lower limit</th>
+							<th scope="col">Average</th>
+							<th scope="col">Upper limit</th>
+						  </tr>
+						</thead>
+						<tbody>
+							<tr>
+							  <th scope="row">Total Cholesterol</th>
+							  <td>{{ (result[0]*38.67) }}</td>
+							  <td>{{ (result[1]*38.67) }}</td>
+							  <td>{{ (result[2]*38.67) }}</td>
+							</tr>
+							<tr>
+							  <th scope="row">LDL Cholesterol</th>
+							  <td>{{ (result[3]*38.67) }}</td>
+							  <td>{{ (result[4]*38.67) }}</td>
+							  <td>{{ (result[5]*38.67) }}</td>
+							</tr>
+							<tr>
+							  <th scope="row">HDL Cholesterol</th>
+							  <td>{{ (result[6]*38.67) }}</td>
+							  <td>{{ (result[7]*38.67) }}</td>
+							  <td>{{ (result[8]*38.67) }}</td>
+							</tr>
+							<tr>
+								<th scope="row">Triglycerides</th>
+								<td>{{ (result[9]*38.67) }}</td>
+								<td>{{ (result[10]*38.67) }}</td>
+								<td>{{ (result[11]*38.67) }}</td>
+							</tr>
+							<tr>
+								<th scope="row">Sample Size</th>
+								<td colspan="4">{{ result[12] }}</td>
+							</tr>
+						  </tbody>
+						</table>
+					
+					<h5>If sample size is less than 120 reference ranges are not reliable.</h5>
+					{% endif %}
+					{% if units == 'int' %}
+					<table class="table table-striped table-hover">
+						<thead>
+						  <tr>
+							<th scope="col"></th>
+							<th scope="col">Lower limit</th>
+							<th scope="col">Average</th>
+							<th scope="col">Upper limit</th>
+						  </tr>
+						</thead>
+						<tbody>
+							<tr>
+							  <th scope="row">Total Cholesterol</th>
+							  <td>{{ (result[0]) }}</td>
+							  <td>{{ (result[1]) }}</td>
+							  <td>{{ (result[2]) }}</td>
+							</tr>
+							<tr>
+							  <th scope="row">LDL Cholesterol</th>
+							  <td>{{ (result[3]) }}</td>
+							  <td>{{ (result[4]) }}</td>
+							  <td>{{ (result[5]) }}</td>
+							</tr>
+							<tr>
+							  <th scope="row">HDL Cholesterol</th>
+							  <td>{{ (result[6]) }}</td>
+							  <td>{{ (result[7]) }}</td>
+							  <td>{{ (result[8]) }}</td>
+							</tr>
+							<tr>
+								<th scope="row">Triglycerides</th>
+								<td>{{ (result[9]) }}</td>
+								<td>{{ (result[10]) }}</td>
+								<td>{{ (result[11]) }}</td>
+							</tr>
+							<tr>
+								<th scope="row">Sample Size</th>
+								<td colspan="4">{{ result[12] }}</td>
+							</tr>
+						  </tbody>
+						</table>
+					<h5>
+					
+					If sample size is less than 120 reference ranges are not reliable.</h5>
+					<p></p>
+					{% endif %}
+					{% endfor %}
+                </div>
 {% endblock %}
 
