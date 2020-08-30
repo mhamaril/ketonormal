@@ -18,7 +18,7 @@
     {% for result in averages %}
     <p>Labs Submitted {{ result[0] }}</p>
     <p>Avarage values: </p>
-    <p>Total {{ result[1]|round(1, 'common') }} LDL {{ result[2]|round(1, 'common') }} HDL {{ result[3]|round(1, 'common') }} Triglycerides {{ result[4]|round(1, 'common') }}</p>
+    <p>Total {{ result[1] }} LDL {{ result[2] }} HDL {{ result[3] }} Triglycerides {{ result[4] }}</p>
     {% endfor %}
 
 </div>

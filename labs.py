@@ -5,7 +5,8 @@ from os import getenv
 import json
     
 def get_averages():
-    result = db.session.execute("SELECT COUNT(*), AVG(total), AVG(ldl), AVG(hdl), AVG(triglyt) FROM labvalues")
+    result = db.session.execute("SELECT COUNT(*), ROUND(CAST (AVG(total) AS numeric),2), ROUND(CAST (AVG(ldl) AS numeric),2),\
+        ROUND(CAST (AVG(hdl) AS numeric),2), ROUND(CAST (AVG(triglyt) AS numeric),2) FROM labvalues")
     return result.fetchall()
 
 def get_lab_names(user_id):
