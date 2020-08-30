@@ -36,7 +36,8 @@ def mypage():
     diet = labs.get_diet_from_profile()
     units = labs.get_units_from_profile()
     ranges = labs.get_profile_ranges()
-    return render_template("mypage.html", lab_names = lab_names, messages = lista, age = age, user_id = user_id, gender = gender, diet = diet, units = units, ranges = ranges)
+    return render_template("mypage.html", lab_names = lab_names, messages = lista, age = age, user_id = user_id, gender = gender, \
+        diet = diet, units = units, ranges = ranges)
  
 @app.route("/results/<int:id>")
 def lab_name(id):
@@ -104,8 +105,6 @@ def register():
     if request.method == "GET":
         return render_template("register.html")
     if request.method == "POST":
-        if session["csrf_token"] != request.form["csrf_token"]:
-            abort(403)
         username = request.form["username"]
         if len(username)<5:
             return render_template("error.html", error="Username Is Too Short")

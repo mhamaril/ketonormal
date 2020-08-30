@@ -24,10 +24,10 @@ def logout():
 def register(username,password):
     hash_value = generate_password_hash(password)
     try:
-        sql = "INSERT INTO users (username, password, is_admin) VALUES (:username, :password, FALSE) RETURNING ID" 
+        sql = "INSERT INTO users (username, password) VALUES (:username, :password) RETURNING ID" 
         result = db.session.execute(sql, {"username":username,"password":hash_value})
         user_id = result.fetchone()[0]
-       
+
         sql = "INSERT INTO profiles (user_id, age, gender, diet, units) VALUES (:user_id, 999, '', 0, '')"
         db.session.execute(sql, {"user_id":user_id})
         db.session.commit()
@@ -37,7 +37,7 @@ def register(username,password):
 
 def user_id():
     return session.get("user_id",0)
-
+        
 def update(age, gender, diet, units, user_id):
     if user_id == 0:
         return False
