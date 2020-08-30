@@ -21,7 +21,6 @@ def get_values(id):
     return result.fetchall()
 
 def get_query_total(sex, age, diet, hours_fasted, crp, units):
-    
     if age == "under":
         minAge = 10
         maxAge = 39
@@ -76,10 +75,12 @@ def get_query_total(sex, age, diet, hours_fasted, crp, units):
         minDiet = 0
         maxDiet = 2
         
-    sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total),\
-        AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl),\
-        AVG(hdl)-1.96*STDDEV(hdl), AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl),\
-        AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), AVG(triglyt)+1.96*STDDEV(triglyt), COUNT(*)\
+    sql = "SELECT ROUND(CAST (AVG(total)-1.96*STDDEV(total) AS numeric),2), ROUND(CAST (AVG(total) AS numeric),2),\
+        ROUND(CAST (AVG(total)+1.96*STDDEV(total) AS numeric),2), ROUND(CAST (AVG(ldl)-1.96*STDDEV(ldl) AS numeric),2),\
+        ROUND(CAST (AVG(ldl) AS numeric),2), ROUND(CAST (AVG(ldl)+1.96*STDDEV(ldl) AS numeric),2),\
+        ROUND(CAST (AVG(hdl)-1.96*STDDEV(hdl) AS numeric),2), ROUND(CAST (AVG(hdl) AS numeric),2),\
+        ROUND(CAST (AVG(hdl)+1.96*STDDEV(hdl) AS numeric),2), ROUND(CAST (AVG(triglyt)-1.96*STDDEV(triglyt) AS numeric),2),\
+        ROUND(CAST (AVG(triglyt) AS numeric),2), ROUND(CAST (AVG(triglyt)+1.96*STDDEV(triglyt) AS numeric),2), COUNT(*)\
         FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge \
         AND diet BETWEEN :minDiet AND :maxDiet AND hours_fasted BETWEEN :minHours AND :maxHours AND crp BETWEEN :minCRP AND :maxCRP"
     result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "minDiet":minDiet,"maxDiet":maxDiet,\
@@ -131,11 +132,14 @@ def get_profile_ranges():
         minAge = 60
         maxAge = 130
      
-    sql = "SELECT AVG(total)-1.96*STDDEV(total), AVG(total), AVG(total)+1.96*STDDEV(total), \
-        AVG(ldl)-1.96*STDDEV(ldl), AVG(ldl), AVG(ldl)+1.96*STDDEV(ldl), AVG(hdl)-1.96*STDDEV(hdl), \
-        AVG(hdl), AVG(hdl)+1.96*STDDEV(hdl), AVG(triglyt)-1.96*STDDEV(triglyt), AVG(triglyt), \
-        AVG(triglyt)+1.96*STDDEV(triglyt), COUNT(*) FROM labvalues WHERE sex = :sex \
-        AND age BETWEEN :minAge AND :maxAge AND diet = :diet AND hours_fasted BETWEEN 11 AND 15 AND crp BETWEEN 0 AND 3"
+    sql = "SELECT ROUND(CAST (AVG(total)-1.96*STDDEV(total) AS numeric),2), ROUND(CAST (AVG(total) AS numeric),2),\
+        ROUND(CAST (AVG(total)+1.96*STDDEV(total) AS numeric),2),ROUND(CAST (AVG(ldl)-1.96*STDDEV(ldl) AS numeric),2),\
+        ROUND(CAST (AVG(ldl) AS numeric),2), ROUND(CAST (AVG(ldl)+1.96*STDDEV(ldl) AS numeric),2),\
+        ROUND(CAST (AVG(hdl)-1.96*STDDEV(hdl) AS numeric),2), ROUND(CAST (AVG(hdl) AS numeric),2),\
+        ROUND(CAST (AVG(hdl)+1.96*STDDEV(hdl) AS numeric),2), ROUND(CAST (AVG(triglyt)-1.96*STDDEV(triglyt) AS numeric),2),\
+        ROUND(CAST (AVG(triglyt) AS numeric),2), ROUND(CAST (AVG(triglyt)+1.96*STDDEV(triglyt) AS numeric),2), COUNT(*)\
+        FROM labvalues WHERE sex = :sex AND age BETWEEN :minAge AND :maxAge AND diet = :diet\
+        AND hours_fasted BETWEEN 11 AND 15 AND crp BETWEEN 0 AND 3"
     result = db.session.execute(sql, {"sex":sex, "minAge":minAge, "maxAge":maxAge, "diet":diet, "units":units})
     return result.fetchall()
 
