@@ -15,7 +15,7 @@
 			<svg width="6em" height="6em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 				<path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
 			</svg> <br>
-			<h4>{{ session.username  }}</h4>
+			<h4>{{ session.username }}</h4>
 			
 			Age: {{ age }}<br>
 			Gender: {{ gender }}<br>
@@ -42,6 +42,7 @@
 					
 					{% for result in ranges %}
 					{% if units == 'usa' %}
+					<div style="overflow-x:auto;">
 					<table class="table table-striped table-hover">
 						<thead>
 						  <tr>
@@ -82,10 +83,12 @@
 							</tr>
 						  </tbody>
 						</table>
+					</div>
 					
 					<h5>If sample size is less than 120 reference ranges are not reliable.</h5>
 					{% endif %}
 					{% if units == 'int' %}
+					<div style="overflow-x:auto;">
 					<table class="table table-striped table-hover">
 						<thead>
 						  <tr>
@@ -126,6 +129,7 @@
 							</tr>
 						  </tbody>
 						</table>
+					</div>
 					<h5>
 					
 					If sample size is less than 120 reference ranges are not reliable.</h5>

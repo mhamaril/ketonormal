@@ -34,6 +34,11 @@ body {
 		    
         
           <ul class="navbar-nav ml-auto">
+            {% if is_admin == "true" %}
+            <li class="nav-item active">
+              <a class="nav-link" href="/mypage">Admin View</a>
+            </li>
+            {% endif %}
             <li class="nav-item active">
               <a class="nav-link" href="/mypage">My Page</a>
             </li>
