@@ -2,6 +2,22 @@
 
 Sovellus herokussa: https://ketonormal.herokuapp.com/
 
+Su 30.8.2020 Lopullinen palautus
+
+Ketonormal on tietokantasovellus, johon tallennetaan käyttäjän verikokeen tulokset ja sovellus laskee tietokantaan tallennuttujen tulosten perusteella viitearvot halutulle käyttäjäryhmälle. 
+
+Nykyiset viite-arvot on määritelty koko väestön perusterveiden mukaan. Tämä sovellus kerää verikokeiden tuloksia ihmisiltä, jotka ovat vähähiilihydraattisella ruokavaliolla. Veren kolesteroliarvot ovat tällaisilla ihmisillä usein korkeammat kuin vähärasvaista ruokavaliota noudattavilla. Haluan määritellä mitkä ovat viite-arvot tällaisellä ihmisryhmällä.
+
+Sovellusta voi kokeilla käyttäjällä matti, salasanalla matti tai voi luoda uuden käyttäjän. Mypage sivulla näkyy oma profiili, jota voi päivittää. Mypage sivulla näkyvät raja-arvot lasketaan tämän profiilin mukaan. Mypage sivulla voi lisätä verikokeiden tuloksia ja tarkastella niitä labran nimeä klikkaamalla. Käyttäjä voi poistaa syöttämänsä labrojen tulokset. Mypage sivulla näkyy keskustelufoorumin kolme viimeisintä viestiä. Klikkaamalla keskustelusta Replyä niin se vie sivulle, jossa näkyy kyseinen keskustelu. Sieltä voi lähettää viestin kyseiseen keskusteluun. 
+
+Forum sivulla näkyy kaikki keskustelut viimeisimmästä viestistä alkaen. Klikkaamalla otsikkoa pääsee lukemaan kyseisen ketjun viestejä sekä vastaamaan siihen. Forum sivulla käyttäjä voi poistaa omia viestejään.
+ 
+Submit Labs toimii niin kuin pitää ja se ilmoittaa selaimessa jos jokin tieto puuttuu. Make Queries toimii myös ja siinä voi lähes kaikilla mahdollisilla vaihtoehdoilla tutkia eri raja-arvoja. Muutin kaikki pyöristykset tehtäväksi SQL-kyselyssä, koska sovellus kaatui kun se yritti pyöristää None arvoa.
+
+Sovelluksesta jäi puuttumaan toiminnallisuus, jossa admin käyttäjällä on oikeus poistaa kaikkien viestejä sekä viestiketjuja. Muutama funktio on edelleen pitkä, mutta en tällä ohjelmointikokemuksella osaa niitä lyhentää ilman että tekisin tietokantaan muutoksia.
+
+Mielestäni sovellus toimii niinkuin pitää ja tekee kaikki haluamani asiat. Ulkoasua tein myös yhtenäisemmäksi ja olen siihen suht tyytyväinen. 
+
 su 23.8.2020 Välipalautus 3
 
 Sovellusta voi kokeilla käyttäjällä matti, salasanalla matti tai voi luoda uuden käyttäjän. Mypage sivulla näkyy oma profiili, jonka mukaan mypage sivulla näytetään myös raja-arvot labroille. Mypage sivulla näkee myös kyseisen käyttäjän lisäämät labratulokset sekä 3 viimeisintä viestiä, mitkä on lähetetty keskustelupalstalle. Klikkaamalla lisättyä labran nimeä sovellus näyttää arvot ja sen voi halutessaan poistaa. Klikkaamalla keskustelusta Replyä niin se vie sivulle, jossa näkyy kyseinen keskustelu. Siellä voi lähettää viestin kyseiseen keskusteluun. Forum sivulla näkyy kaikki keskustelut viimeisimmästä viestistä alkaen. Klikkaamalla otsikkoa pääsee lukemaan kyseisen ketjun viestejä sekä vastaamaan siihen. Submit Labs toimii niin kuin pitää ja se ilmoittaa jos joku tieto puuttuu. Make Queries toimii myös ja siinä voi lähes kaikilla mahdollisilla vaihtoehdoilla tutkia eri raja-arvoja.
