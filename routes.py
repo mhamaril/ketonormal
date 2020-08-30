@@ -107,12 +107,12 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         if len(username)<5:
-            return render_template("error.html", error="Username Is Too Short")
+            return render_template("error.html", message="Username Is Too Short")
         password = request.form["password"]
         if users.register(username,password):
             return redirect("/mypage")
         else:
-            return render_template("error.html",message="Username Is Already Taken")
+            return render_template("error.html", message="Username Is Already Taken")
 
 @app.route("/submitlabs")
 def submit():
